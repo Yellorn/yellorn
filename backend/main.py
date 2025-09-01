@@ -1,7 +1,5 @@
+
 from fastapi import FastAPI
+from .plots_api import app as plots_app
 
-app = FastAPI()
-
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
+app = plots_app

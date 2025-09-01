@@ -1,3 +1,41 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Logs and editor swap/backup files
+*.log
+*.swp
+*.swo
+*~
+
+# Docker (if used)
+docker-compose.override.yml
+*.local.yml
+
+# Local env overrides (if used)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# --- Frontend (Node/React/Vite) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+frontend/.DS_Store
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.next/
+frontend/.cache/
+frontend/.turbo/
+frontend/.vercel/
+frontend/.output/
+frontend/.vite/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

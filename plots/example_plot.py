@@ -1,4 +1,4 @@
-from world_engine.models import PlotModel
+from backend.world_engine.models import PlotModel
 
 plot_data = PlotModel(
     id="example_plot",
