@@ -1,5 +1,7 @@
 
-from fastapi import FastAPI
-from plots_api import app as plots_app
 
-app = plots_app
+"""
+Entrypoint for the backend FastAPI app. Imports the main app from plots_api.
+"""
+
+from plots_api import app

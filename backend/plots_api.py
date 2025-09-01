@@ -1,47 +1,54 @@
 
 
+
 import importlib
 import pkgutil
+import os
+import sys
 from pathlib import Path
+from typing import List, Tuple, Any
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
-import sys
-# Load .env variables
 from dotenv import load_dotenv
+
+# Load .env variables
 load_dotenv(dotenv_path=Path(__file__).parent / ".env")
+
 
 
 app = FastAPI()
 
-# Allow CORS for local frontend
-
-# Only allow CORS for local frontend if running in development
-import os
+# --- CORS config for local frontend ---
 if os.environ.get("YELLORN_ENV", "development") == "development":
-    origins = os.environ.get("FRONTEND_ORIGINS", "http://localhost:5173").split(",")
+    origins = [o.strip() for o in os.environ.get("FRONTEND_ORIGINS", "http://localhost:5173").split(",") if o.strip()]
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[o.strip() for o in origins],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"]
     )
 
 
+
 PROJECT_ROOT = Path(__file__).parent.parent
 PLOTS_PATH = PROJECT_ROOT / "plots"
-
 # Ensure project root is in sys.path for dynamic import
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-# Dynamic plot loader
-def load_plots() -> List[dict]:
-    plots = []
-    errors = []
-    ids = set()
-    positions = set()
+
+def load_plots() -> Tuple[list, list]:
+    """
+    Dynamically load all plot_data from the plots directory, validating uniqueness and overlap.
+    Returns:
+        plots (list): List of plot_data objects.
+        errors (list): List of error messages encountered during loading/validation.
+    """
+    plots: list[Any] = []
+    errors: list[str] = []
+    ids: set = set()
+    positions: set = set()
     for _, module_name, _ in pkgutil.iter_modules([str(PLOTS_PATH)]):
         try:
             module = importlib.import_module(f"plots.{module_name}")
@@ -66,22 +73,28 @@ def load_plots() -> List[dict]:
     return plots, errors
 
 
-@app.get("/plots")
-def get_plots():
+
+@app.get("/plots", response_model=dict)
+def get_plots() -> dict:
+    """Return all plots and any validation errors."""
     plots, errors = load_plots()
     return {
         "plots": [p.model_dump() if hasattr(p, "model_dump") else dict(p) for p in plots],
         "errors": errors
     }
 
-@app.get("/plots/{plot_id}")
-def get_plot_by_id(plot_id: str):
+
+@app.get("/plots/{plot_id}", response_model=dict)
+def get_plot_by_id(plot_id: str) -> dict:
+    """Return a single plot by ID, or an error if not found."""
     plots, errors = load_plots()
     for p in plots:
         if p.id == plot_id:
             return p.model_dump() if hasattr(p, "model_dump") else dict(p)
     return {"error": f"Plot with id '{plot_id}' not found.", "errors": errors}
 
-@app.get("/health")
-def health_check():
+
+@app.get("/health", response_model=dict)
+def health_check() -> dict:
+    """Health check endpoint."""
     return {"status": "ok"}
