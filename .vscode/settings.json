@@ -1,0 +1,11 @@
+{
+    "github.copilot.chat.scopeSelection": false,
+    "github.copilot.chat.codesearch.enabled": true,
+    "github.copilot.chat.agent.thinkingTool": true,
+    "github.copilot.chat.enableRetryAfterFilteredResponse": true,
+    "github.copilot.chat.edits.temporalContext.enabled": true,
+    "githubPullRequests.experimental.useQuickChat": true,
+    "githubPullRequests.quickDiff": true,
+    "githubPullRequests.showPullRequestNumberInTree": true,
+    "githubPullRequests.terminalLinksHandler": "github"
+}
