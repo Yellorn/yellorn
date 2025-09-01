@@ -1,4 +1,5 @@
 
+
 import importlib
 import pkgutil
 from pathlib import Path
@@ -6,6 +7,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import sys
+# Load .env variables
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 
 
 app = FastAPI()
@@ -15,7 +19,7 @@ app = FastAPI()
 # Only allow CORS for local frontend if running in development
 import os
 if os.environ.get("YELLORN_ENV", "development") == "development":
-    origins = os.environ.get("FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+    origins = os.environ.get("FRONTEND_ORIGINS", "http://localhost:5173").split(",")
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[o.strip() for o in origins],

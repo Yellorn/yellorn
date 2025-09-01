@@ -18,7 +18,8 @@ const PlotsList: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8000/plots")
+    const API_BASE = import.meta.env.VITE_BACKEND_API;
+    fetch(`${API_BASE}/plots`)
       .then((res) => res.json())
       .then((data: PlotsResponse) => {
         setPlots(data.plots);
