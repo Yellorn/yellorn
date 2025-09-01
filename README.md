@@ -6,8 +6,8 @@
 <h1 align="center">Yellorn 🌍</h1>
 
 <p align="center">
-	<img src="https://img.shields.io/github/workflow/status/Yellorn/yellorn/CI/main?label=CI" alt="CI Status">
-	<img src="https://img.shields.io/github/license/Yellorn/yellorn" alt="License">
+	<img src="https://github.com/Yellorn/yellorn/actions/workflows/ci.yml/badge.svg" alt="CI Status">
+	<img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue" alt="License">
 	<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
 	<img src="https://img.shields.io/badge/vibe-coding-blueviolet" alt="Vibe Coding">
 </p>
