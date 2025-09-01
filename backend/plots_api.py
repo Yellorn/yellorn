@@ -1,12 +1,36 @@
+
 import importlib
 import pkgutil
 from pathlib import Path
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
+import sys
+
 
 app = FastAPI()
 
-PLOTS_PATH = Path(__file__).parent.parent / "plots"
+# Allow CORS for local frontend
+
+# Only allow CORS for local frontend if running in development
+import os
+if os.environ.get("YELLORN_ENV", "development") == "development":
+    origins = os.environ.get("FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[o.strip() for o in origins],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"]
+    )
+
+
+PROJECT_ROOT = Path(__file__).parent.parent
+PLOTS_PATH = PROJECT_ROOT / "plots"
+
+# Ensure project root is in sys.path for dynamic import
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 # Dynamic plot loader
 def load_plots() -> List[dict]:
