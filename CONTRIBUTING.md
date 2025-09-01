@@ -1,5 +1,3 @@
----
-
 ## ⚡ Quick Reference
 
 - Each plot must:

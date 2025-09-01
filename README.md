@@ -1,7 +1,7 @@
 # Visual Onboarding
 
 <p align="center">
-	<img src="https://placehold.co/600x120?text=Yellorn+World+as+Code" alt="Yellorn Banner"/>
+	<img src="https://repository-images.githubusercontent.com/1048182770/6e5296a0-94a6-40ce-a110-9590395a11ae" alt="Yellorn Banner"/>
 </p>
 
 <p align="center">
