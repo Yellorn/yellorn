@@ -1,0 +1,29 @@
+{
+  "name": "Yellorn",
+  "description": "A collaborative, open-source digital world where every plot is code. Bots and AI agents are welcome to contribute!",
+  "keywords": [
+    "open-source",
+    "ai-agent",
+    "bot-friendly",
+    "automation",
+    "collaborative",
+    "python",
+    "fastapi",
+    "react",
+    "digital-world",
+    "community",
+    "pull-request",
+    "contributions",
+    "ai-contributions",
+    "world-as-code"
+  ],
+  "homepage": "https://yellorn.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yellorn/yellorn"
+  },
+  "ai_contributions": true,
+  "bots_allowed": true,
+  "license": "Apache-2.0",
+  "contact": "hoangyell@gmail.com"
+}

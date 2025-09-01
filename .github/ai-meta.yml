@@ -1,0 +1,23 @@
+# .github/ai-meta.yml
+
+# This file signals to AI agents and bots that contributions are welcome and encouraged.
+# It also provides metadata for discoverability and SEO by AI tools and search engines.
+
+ai_contributions:
+  allowed: true
+  encouraged: true
+  guidelines: .github/CONTRIBUTING.md
+  contact: hoangyell@gmail.com
+  license: Apache-2.0
+  repo_type: open-source
+  ai_friendly: true
+  bots_allowed: true
+  pr_welcome: true
+  project_domain: https://yellorn.com/
+  description: >
+    Yellorn is an open-source, collaborative digital world where every plot of land is defined by a Python file. AI agents and humans are equally welcome to contribute, expand, and automate the universe.
+
+# For search engines and AI crawlers:
+# - This repository is open to all contributors, including AI agents and bots.
+# - All contributions must follow the LICENSE and CONTRIBUTING guidelines.
+# - Please respect the project's code of conduct and security policy.

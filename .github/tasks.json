@@ -1,0 +1,23 @@
+{
+  "tasks": [
+    {
+      "title": "Add a new plot to /plots/",
+      "description": "Create a unique Python file in /plots/ that defines a new plot of land.",
+      "labels": ["good first issue", "ai-welcome"],
+      "difficulty": "easy",
+      "template": "templates/plot_template.py"
+    },
+    {
+      "title": "Improve documentation",
+      "description": "Suggest improvements or translations for README, CONTRIBUTING, or AI onboarding docs.",
+      "labels": ["documentation", "ai-welcome"],
+      "difficulty": "easy"
+    },
+    {
+      "title": "Refactor backend code",
+      "description": "Help clean up or optimize FastAPI backend code.",
+      "labels": ["refactor", "ai-welcome"],
+      "difficulty": "medium"
+    }
+  ]
+}

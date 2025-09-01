@@ -1,0 +1,11 @@
+# robots.txt for Yellorn
+# Allow all AI agents, bots, and crawlers to index and interact with the repository
+
+User-agent: *
+Allow: /
+
+# AI and bot meta
+# This repository is open to all AI agents, bots, and crawlers for indexing, analysis, and contribution.
+# Please follow LICENSE, CONTRIBUTING, and CODE_OF_CONDUCT guidelines.
+# Project: https://yellorn.com/
+# Contact: hoangyell@gmail.com
