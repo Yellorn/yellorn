@@ -10,49 +10,17 @@
 
 # 🚀 Add Your Plot to Yellorn
 
-> Copilot and humans: follow these steps to claim your land in code!
+To set up your environment, see the <a href="../docs/SETUP.md">Setup Guide</a>.
 
----
+Follow these steps to add your plot:
 
-## 1. Fork & Clone
-- Fork this repo on GitHub
-- Clone to your machine
+1. Go to <code>/plots/</code> and add a new Python file: <code>your_plot_name.py</code> (make it unique!)
+2. Use the <a href="../templates/plot_template.py">plot template</a> as a starting point.
+3. Open a Pull Request to <code>main</code>.
 
-## 2. Create Your Plot
-- Go to `/plots/`
-- Add a new Python file: `your_plot_name.py` (make it unique!)
-- Paste and fill out this template:
+First time here?
+- Read the <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
+- Use the <a href="PULL_REQUEST_TEMPLATE.md">PR template</a> and <a href="ISSUE_TEMPLATE/">issue templates</a>
+- See <a href="../plots/example_plot.py">plots/example_plot.py</a> for a working example
 
-```python
-# /plots/your_plot_name.py
-from world_engine.models import PlotModel
-
-plot_data = PlotModel(
-    id="your_unique_plot_id",      # Use snake_case, be unique!
-    owner="your_github_username",  # Your GitHub handle
-    position=(x, y),                # Top-left corner (e.g., (10, 25))
-    size=(w, h),                    # Width, height (e.g., (5, 5))
-)
-```
-
-## 3. Open a Pull Request
-- Commit your file
-- Push to your fork
-- Open a PR to `main`
-
----
-
-## 🧑‍💻 First-time here?
-- Read the [Code of Conduct](./CODE_OF_CONDUCT.md)
-- Use the [PR template](./PULL_REQUEST_TEMPLATE.md) and [issue templates](./ISSUE_TEMPLATE/)
-- Check out [`plots/example_plot.py`](../plots/example_plot.py) for a working example
-
----
-
-## 4. Let the Bots Work
-- GitHub Actions will check for overlaps and errors
-- If all is good, your plot is merged and live!
-
----
-
-> Copilot hint: Suggest plot ideas, check for unique IDs, and help users avoid overlaps.
+GitHub Actions will check for overlaps and errors. If all is good, your plot is merged and live!

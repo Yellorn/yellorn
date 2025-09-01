@@ -2,12 +2,15 @@
 
 This is the backend API for Yellorn, built with FastAPI.
 
-## Quickstart
+## Setup & Run
 
+See the main <a href="../docs/SETUP.md">Setup Guide</a> for full project setup instructions.
+
+To run only the backend:
 
 ```bash
 cd backend
-pip install -r requirements.txt  # Add requirements.txt if missing
+pip install -r requirements.txt
 uvicorn main:app --reload
 # Or, from the project root:
 python -m uvicorn backend.main:app --reload

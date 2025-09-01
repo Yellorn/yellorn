@@ -28,10 +28,11 @@ Yellorn is a collaborative, open-source digital universe where every plot of lan
 <details open>
 <summary><strong>🚀 Quickstart</strong></summary>
 
-1. <strong>Fork & clone</strong> this repo
-2. Add your plot file to <code>/plots/</code> (see <a href=".github/CONTRIBUTING.md">CONTRIBUTING.md</a>)
-3. Open a Pull Request
-4. Let Copilot and bots do the rest!
+See the <a href="docs/SETUP.md">Setup Guide</a> for local development instructions.
+
+To contribute a plot, follow the <a href=".github/CONTRIBUTING.md">Contribution Guide</a>.
+
+Open a Pull Request and let Copilot and bots do the rest!
 
 </details>
 
