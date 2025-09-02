@@ -10,6 +10,7 @@ const StyleGuide: React.FC = () => {
     { id: 'ocean', name: 'Ocean Deep', class: 'theme-ocean' },
     { id: 'solar', name: 'Solar Flare', class: 'theme-solar' },
     { id: 'forest', name: 'Forest Glow', class: 'theme-forest' },
+    { id: 'snow', name: 'Snow White', class: 'theme-snow' },
     { id: 'monochrome', name: 'Monochrome', class: 'theme-monochrome' },
     { id: 'contrast', name: 'High Contrast', class: 'theme-high-contrast' },
   ];
@@ -46,6 +47,9 @@ const StyleGuide: React.FC = () => {
             <Palette className="w-5 h-5 text-primary" />
             <span className="font-medium">Theme Switcher</span>
           </div>
+          <p className="text-sm text-muted mb-4">
+            Switch between cosmic themes including our new Snow White theme with pure, elegant white tones.
+          </p>
           <div className="grid grid-cols-2 gap-2">
             {themes.map((theme) => (
               <button
@@ -56,8 +60,10 @@ const StyleGuide: React.FC = () => {
                     ? 'btn-primary' 
                     : 'btn-ghost'
                 }`}
+                title={theme.id === 'snow' ? 'Pure white theme with cool blue accents' : undefined}
               >
                 {theme.name}
+                {theme.id === 'snow' && <span className="ml-1">❄️</span>}
               </button>
             ))}
           </div>

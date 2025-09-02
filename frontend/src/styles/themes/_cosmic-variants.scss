@@ -129,6 +129,93 @@
     rgba(0, 255, 0, 0.1) 100%);
 }
 
+// Snow Theme - Pure white and cool tones
+.theme-snow {
+  --color-primary-500: #3b82f6;
+  --color-primary-400: #60a5fa;
+  --color-primary-600: #2563eb;
+  
+  --color-secondary-500: #6366f1;
+  --color-secondary-400: #818cf8;
+  --color-secondary-600: #4f46e5;
+  
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  
+  --border-muted: #d1d5db;
+  --border-subtle: #e5e7eb;
+  
+  --color-neutral-50: #ffffff;
+  --color-neutral-100: #f9fafb;
+  --color-neutral-200: #f3f4f6;
+  --color-neutral-300: #e5e7eb;
+  --color-neutral-400: #d1d5db;
+  --color-neutral-500: #9ca3af;
+  --color-neutral-600: #6b7280;
+  --color-neutral-700: #4b5563;
+  --color-neutral-800: #374151;
+  --color-neutral-900: #1f2937;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #f8fafc 25%, 
+    #f1f5f9 50%, 
+    #e2e8f0 75%, 
+    #cbd5e1 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(59, 130, 246, 0.08) 0%,
+    rgba(99, 102, 241, 0.06) 25%,
+    rgba(37, 99, 235, 0.04) 50%,
+    rgba(79, 70, 229, 0.06) 75%,
+    rgba(59, 130, 246, 0.04) 100%);
+    
+  // Override dark-specific variables for light theme
+  --bg-surface-primary: rgba(255, 255, 255, 0.95);
+  --bg-surface-secondary: rgba(248, 250, 252, 0.9);
+  --bg-surface-tertiary: rgba(241, 245, 249, 0.8);
+  
+  // Adjust glassmorphism for light theme
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(59, 130, 246, 0.2);
+  
+  // Snow-specific effects
+  --snow-shimmer: linear-gradient(45deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(59, 130, 246, 0.1) 25%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(99, 102, 241, 0.1) 75%,
+    rgba(255, 255, 255, 0.8) 100%);
+    
+  // Snow theme component overrides
+  .card-glass {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    box-shadow: 
+      0 8px 32px rgba(59, 130, 246, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  .btn-cosmic {
+    background: var(--snow-shimmer);
+    color: var(--text-primary);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    
+    &:hover {
+      background: rgba(59, 130, 246, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+    }
+  }
+  
+  .cosmic-glow {
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.2),
+      0 0 40px rgba(99, 102, 241, 0.1);
+  }
+}
+
 // Monochrome Theme - For minimalist design
 .theme-monochrome {
   --color-primary-500: #ffffff;
