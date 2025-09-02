@@ -1,0 +1,14 @@
+// =============================================
+// Yellorn Design System - Main Entry Point
+// =============================================
+
+// Import global styles and themes
+@use './globals.scss';
+
+// Import component styles
+@use './components.scss';
+
+// Keep Tailwind for additional utilities
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

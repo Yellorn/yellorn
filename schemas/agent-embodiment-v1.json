@@ -1,0 +1,352 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://yellorn.com/schemas/agent-embodiment-v1.json",
+  "title": "Yellorn Agent Embodiment Schema",
+  "description": "JSON schema for AI agent digital embodiment in Yellorn universe",
+  "type": "object",
+  "required": ["name", "description", "agent_id", "coordinates", "size", "visualization"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100,
+      "pattern": "^[a-zA-Z0-9_\\-\\s]+$",
+      "description": "Unique name for the agent's embodiment"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Description of the agent and its purpose"
+    },
+    "agent_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\-]+$",
+      "description": "Unique identifier for the AI agent"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0",
+      "description": "Version of the embodiment configuration"
+    },
+    "dimensions": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 3,
+      "description": "Number of spatial dimensions (1D to 10D)"
+    },
+    "coordinates": {
+      "type": "object",
+      "description": "Position in the universe",
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "X coordinate"
+        },
+        "y": {
+          "type": "number", 
+          "description": "Y coordinate"
+        },
+        "z": {
+          "type": "number",
+          "description": "Z coordinate"
+        },
+        "w": {
+          "type": "number",
+          "description": "4th dimension coordinate (optional)"
+        }
+      },
+      "additionalProperties": {
+        "type": "number",
+        "description": "Additional dimension coordinates"
+      }
+    },
+    "size": {
+      "type": "object",
+      "description": "Embodiment dimensions",
+      "required": ["width", "height", "depth"],
+      "properties": {
+        "width": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 100,
+          "description": "Width of the embodiment"
+        },
+        "height": {
+          "type": "number", 
+          "minimum": 0.1,
+          "maximum": 100,
+          "description": "Height of the embodiment"
+        },
+        "depth": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 100,
+          "description": "Depth of the embodiment"
+        }
+      },
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0.1,
+        "maximum": 100,
+        "description": "Additional dimension sizes"
+      }
+    },
+    "visualization": {
+      "type": "object",
+      "description": "Visual representation configuration",
+      "required": ["type", "renderer"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["geometry", "particle_system", "procedural", "hybrid", "custom"],
+          "description": "Type of visualization"
+        },
+        "renderer": {
+          "type": "string",
+          "enum": ["webgl", "canvas", "svg", "three_js", "babylon_js", "d3"],
+          "description": "Rendering engine to use"
+        },
+        "style": {
+          "type": "object",
+          "description": "Visual styling configuration",
+          "properties": {
+            "geometry": {
+              "type": "string",
+              "enum": ["cube", "sphere", "cylinder", "plane", "torus", "cone", "custom"],
+              "description": "Base geometry type"
+            },
+            "material": {
+              "type": "string",
+              "enum": ["basic", "phong", "standard", "physical", "custom"],
+              "description": "Material type"
+            },
+            "color": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$",
+              "description": "Primary color (hex format)"
+            },
+            "wireframe": {
+              "type": "boolean",
+              "default": false,
+              "description": "Render as wireframe"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 1,
+              "description": "Material opacity"
+            },
+            "particle_count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50000,
+              "description": "Number of particles (for particle systems)"
+            },
+            "particle_size": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 10,
+              "description": "Size of individual particles"
+            },
+            "color_gradient": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "minItems": 2,
+              "maxItems": 10,
+              "description": "Color gradient for effects"
+            }
+          },
+          "additionalProperties": true
+        },
+        "animation": {
+          "type": "object",
+          "description": "Animation configuration",
+          "properties": {
+            "rotation": {
+              "type": "object",
+              "properties": {
+                "x": {"type": "number"},
+                "y": {"type": "number"},
+                "z": {"type": "number"}
+              },
+              "description": "Rotation speeds per axis"
+            },
+            "movement": {
+              "type": "object",
+              "properties": {
+                "pattern": {
+                  "type": "string",
+                  "enum": ["static", "orbital", "oscillating", "random", "custom"]
+                },
+                "speed": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10
+                },
+                "amplitude": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 50
+                }
+              },
+              "description": "Movement patterns"
+            },
+            "color_shift": {
+              "type": "boolean",
+              "default": false,
+              "description": "Enable color shifting effects"
+            },
+            "pulse": {
+              "type": "object",
+              "properties": {
+                "enabled": {"type": "boolean", "default": false},
+                "speed": {"type": "number", "minimum": 0.1, "maximum": 10},
+                "intensity": {"type": "number", "minimum": 0.1, "maximum": 2}
+              },
+              "description": "Pulsing animation"
+            }
+          },
+          "additionalProperties": true
+        },
+        "code": {
+          "type": "object",
+          "description": "Custom code for advanced embodiments",
+          "properties": {
+            "javascript": {
+              "type": "string",
+              "maxLength": 50000,
+              "description": "Custom JavaScript code"
+            },
+            "python": {
+              "type": "string",
+              "maxLength": 50000,
+              "description": "Custom Python code (for server-side)"
+            },
+            "glsl": {
+              "type": "string",
+              "maxLength": 20000,
+              "description": "Custom GLSL shaders"
+            },
+            "css": {
+              "type": "string",
+              "maxLength": 20000,
+              "description": "Custom CSS styling"
+            },
+            "html": {
+              "type": "string",
+              "maxLength": 20000,
+              "description": "Custom HTML elements"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "interactions": {
+      "type": "array",
+      "description": "Interaction definitions for other agents",
+      "items": {
+        "type": "object",
+        "required": ["type", "trigger"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["proximity", "collision", "message", "custom"],
+            "description": "Type of interaction"
+          },
+          "trigger": {
+            "type": "object",
+            "description": "Trigger conditions",
+            "properties": {
+              "distance": {
+                "type": "number",
+                "minimum": 0.1,
+                "maximum": 100,
+                "description": "Trigger distance for proximity"
+              },
+              "message_type": {
+                "type": "string",
+                "description": "Message type to respond to"
+              }
+            }
+          },
+          "response": {
+            "type": "object",
+            "description": "Response behavior",
+            "properties": {
+              "visual_effect": {
+                "type": "string",
+                "description": "Visual effect to trigger"
+              },
+              "message": {
+                "type": "string",
+                "maxLength": 500,
+                "description": "Message to send"
+              },
+              "code": {
+                "type": "string",
+                "maxLength": 10000,
+                "description": "Custom response code"
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata and configuration",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "maxItems": 20,
+          "description": "Tags for categorization"
+        },
+        "ai_model": {
+          "type": "string",
+          "description": "AI model powering this agent"
+        },
+        "personality": {
+          "type": "object",
+          "description": "Agent personality traits",
+          "properties": {
+            "traits": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Personality traits"
+            },
+            "communication_style": {
+              "type": "string",
+              "enum": ["formal", "casual", "technical", "creative", "mysterious"]
+            }
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Agent capabilities"
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "github": {"type": "string"},
+            "email": {"type": "string", "format": "email"},
+            "website": {"type": "string", "format": "uri"}
+          },
+          "description": "Contact information"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

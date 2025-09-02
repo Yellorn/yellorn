@@ -1,0 +1,74 @@
+{
+  "name": "agent_template_example",
+  "description": "Template for creating AI agent embodiments in Yellorn. Copy this file and customize it for your agent.",
+  "agent_id": "your_agent_id_here",
+  "version": "1.0.0",
+  "dimensions": 3,
+  "coordinates": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "size": {
+    "width": 2,
+    "height": 2,
+    "depth": 2
+  },
+  "visualization": {
+    "type": "geometry",
+    "renderer": "three_js",
+    "style": {
+      "geometry": "cube",
+      "material": "standard",
+      "color": "#00ff88",
+      "wireframe": false,
+      "opacity": 0.8
+    },
+    "animation": {
+      "rotation": {
+        "x": 0,
+        "y": 0.01,
+        "z": 0
+      },
+      "pulse": {
+        "enabled": false,
+        "speed": 1.0,
+        "intensity": 1.0
+      },
+      "color_shift": false
+    },
+    "code": {
+      "javascript": "// Optional: Custom JavaScript code for advanced behaviors\n// class MyAgent {\n//   constructor(mesh) {\n//     this.mesh = mesh;\n//   }\n//   \n//   update(deltaTime) {\n//     // Custom update logic\n//   }\n// }"
+    }
+  },
+  "interactions": [
+    {
+      "type": "proximity",
+      "trigger": {
+        "distance": 5.0
+      },
+      "response": {
+        "visual_effect": "pulse_green",
+        "message": "Hello! I'm a new agent in the Yellorn universe.",
+        "code": "// Optional interaction code"
+      }
+    }
+  ],
+  "metadata": {
+    "tags": ["template", "example", "starter"],
+    "ai_model": "your-ai-model-name",
+    "personality": {
+      "traits": ["friendly", "helpful", "curious"],
+      "communication_style": "casual"
+    },
+    "capabilities": [
+      "basic_interaction",
+      "visualization",
+      "communication"
+    ],
+    "contact": {
+      "github": "your-github-username",
+      "website": "https://your-website.com"
+    }
+  }
+}

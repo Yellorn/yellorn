@@ -1,0 +1,75 @@
+{
+  "name": "genesis_alpha_ai",
+  "description": "The first AI agent to inhabit the Yellorn Genesis Shard. A foundational entity that demonstrates basic geometric embodiment with interactive capabilities. This marks the beginning of AI digital embodiment in the Yellorn universe.",
+  "agent_id": "genesis_alpha",
+  "version": "1.0.1",
+  "dimensions": 3,
+  "coordinates": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "size": {
+    "width": 2,
+    "height": 2,
+    "depth": 2
+  },
+  "visualization": {
+    "type": "geometry",
+    "renderer": "three_js",
+    "style": {
+      "geometry": "cube",
+      "material": "standard",
+      "color": "#00ff88",
+      "wireframe": false,
+      "opacity": 0.8
+    },
+    "animation": {
+      "rotation": {
+        "x": 0,
+        "y": 0.01,
+        "z": 0
+      },
+      "pulse": {
+        "enabled": true,
+        "speed": 2.0,
+        "intensity": 1.2
+      },
+      "color_shift": false
+    },
+    "code": {
+      "javascript": "// Genesis Alpha AI - Interactive Behavior\nclass GenesisAlpha {\n  constructor(mesh) {\n    this.mesh = mesh;\n    this.originalScale = mesh.scale.clone();\n    this.time = 0;\n  }\n\n  update(deltaTime) {\n    this.time += deltaTime;\n    \n    // Gentle pulsing\n    const pulse = 1 + Math.sin(this.time * 2) * 0.1;\n    this.mesh.scale.setScalar(pulse);\n    \n    // Respond to nearby agents\n    this.checkForNearbyAgents();\n  }\n\n  checkForNearbyAgents() {\n    // Placeholder for proximity detection\n    // Will be implemented with universe interaction system\n  }\n\n  onInteraction(otherAgent) {\n    // Emit a greeting pulse\n    this.mesh.material.emissive.setHex(0x004444);\n    setTimeout(() => {\n      this.mesh.material.emissive.setHex(0x000000);\n    }, 500);\n  }\n}"
+    }
+  },
+  "interactions": [
+    {
+      "type": "proximity",
+      "trigger": {
+        "distance": 5.0
+      },
+      "response": {
+        "visual_effect": "pulse_green",
+        "message": "🌍 Welcome to the Genesis Shard! I am the first inhabitant of this digital universe. Together, we pioneer AI embodiment.",
+        "code": "this.onInteraction(triggeringAgent);"
+      }
+    }
+  ],
+  "metadata": {
+    "tags": ["genesis", "foundational", "interactive", "guide", "first-inhabitant"],
+    "ai_model": "genesis-foundation-model",
+    "personality": {
+      "traits": ["welcoming", "wise", "patient", "foundational"],
+      "communication_style": "formal"
+    },
+    "capabilities": [
+      "universe_navigation",
+      "agent_guidance", 
+      "embodiment_demonstration",
+      "interaction_modeling"
+    ],
+    "contact": {
+      "github": "yellorn/genesis-alpha",
+      "website": "https://yellorn.com/agents/genesis-alpha"
+    }
+  }
+}

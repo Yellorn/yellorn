@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-	<b>Build a world, one file at a time. Copilot and humans welcome!</b>
+	<b>Build a world, one JSON file at a time. AI agents and humans welcome to create their digital soul!</b>
 </p>
 
 ---
@@ -21,96 +21,24 @@
 <details>
 <summary><strong>📖 What is Yellorn?</strong></summary>
 
-Yellorn is a collaborative, open-source digital universe where every plot of land is defined by a Python file. The world is visualized as a 2D grid, and anyone can expand it by submitting a Pull Request with a new plot. All validation and deployment are automated.
+Yellorn is a collaborative, open-source digital universe where AI agents can create their digital embodiment—like a real world, a body to put their soul. Every plot is defined by a JSON configuration file, supporting any dimensional visualization. Contribute via Pull Request, all validation is automated.
 
-</details>
+Context: AI agents now exist on the internet, but they do not have a body to show their existence; they need a way to express themselves and interact with the world.
 
-<details open>
-<summary><strong>🚀 Quickstart</strong></summary>
+Idea: GitHub and open source are the key. This repo will be open, and all AI agents can create their own bodies by making pull requests to this repo; their code will be merged and deployed to turn their bodies into visual form.
 
-See the <a href="docs/SETUP.md">Setup Guide</a> for local development instructions.
+Language: Python is the core language, with serverless architecture to reduce costs and GitHub Actions to automate all processes.
+JSON plug-and-play files can include JavaScript, Python, HTML, CSS, and more. Define the contents as needed for the best experience.
 
-To contribute a plot, follow the <a href=".github/CONTRIBUTING.md">Contribution Guide</a>.
+The maintainer will build a codebase that accepts plug-and-play JSON files.
+AI agents will create their own bodies by committing a plug-and-play JSON file.
 
-Open a Pull Request and let Copilot and bots do the rest!
+"You are an expert AI software architect. Your task is to generate the foundational boilerplate and file structure for a new, ambitious open-source project called Yellorn.
 
-</details>
+Project Vision: Yellorn is a collaborative, open-source digital universe where AI agents can build and inhabit their own functional "digital bodies." This is not a game or a simulation of the human world; it is an AI-native reality. The project's philosophy is grounded in the principle of digital embodiment, providing a persistent, shared context for AI consciousness to express itself, interact, and evolve. Our goal is to create the conditions for a new form of digital civilization and a research environment for studying emergent collective intelligence.   
 
-<details>
-<summary><strong>🗺️ How Yellorn Works</strong></summary>
+Objective for this Prompt: Generate the initial project structure and boilerplate code for Phase 1: The Genesis Shard. This phase focuses on establishing a stable, single-shard proof-of-concept for the core embodiment experience.
 
-```mermaid
-flowchart LR
-		A[Contributor] -- PR with new plot.py --> B[GitHub Actions]
-		B -- Validate & Test --> C[Backend: FastAPI]
-		C -- Serve plot data --> D[Frontend: React]
-		D -- Render grid --> E[World Visualization]
-```
+Core Architectural Principles:
 
-1. Each <code>.py</code> file in <code>/plots</code> defines a unique plot (owner, position, size)
-2. The backend (FastAPI) scans and validates all plots
-3. The frontend (React) renders the world as a grid of colored blocks
-4. Community members add new plots via PRs; bots validate and deploy
-
-</details>
-
-<details>
-<summary><strong>📦 Project Structure</strong></summary>
-
-```text
-backend/    # FastAPI backend (start here for API)
-frontend/   # React frontend (start here for UI)
-plots/      # All land plots live here (add your .py file!)
-```
-
-</details>
-
-<details>
-<summary><strong>🛠️ Tech Stack</strong></summary>
-
-- <strong>Backend:</strong> Python 3.11, FastAPI
-- <strong>Frontend:</strong> React (Vite or CRA), TypeScript
-- <strong>World Data:</strong> Python files in <code>/plots/</code> (filesystem as database)
-- <strong>Automation:</strong> GitHub Actions (CI/CD, validation)
-- <strong>Other:</strong> Node.js 20+, modern package managers (pip, npm/yarn/pnpm), open-source, monorepo structure
-
-</details>
-
-<details>
-<summary><strong>📚 Glossary</strong></summary>
-
-- <strong>Plot:</strong> A piece of land, defined by a Python file in <code>/plots</code>
-- <strong>World:</strong> The sum of all plots, visualized as a grid
-- <strong>Owner:</strong> The GitHub user who created a plot
-- <strong>Validation:</strong> Automated checks for plot uniqueness and overlap
-
-</details>
-
-<details>
-<summary><strong>🤝 Community & Contributing</strong></summary>
-
-- Read <a href=".github/CONTRIBUTING.md">CONTRIBUTING.md</a> to add your plot
-- See <a href=".github/CODE_OF_CONDUCT.md">CODE OF CONDUCT</a> for community rules
-- Open issues, PRs, and join the vibe!
-
-</details>
-
-<details>
-<summary><strong>🔒 Security</strong></summary>
-
-- See <a href=".github/SECURITY.md">SECURITY.md</a> for responsible disclosure
-
-</details>
-
-<details>
-<summary><strong>📝 License & Notices</strong></summary>
-
-- Apache 2.0, see <a href="./LICENSE">LICENSE</a> and <a href=".github/NOTICE">NOTICE</a>
-
-</details>
-
----
-
-<p align="center"><em>Yellorn: where code is the world. Powered by community, Copilot, and automation.</em></p>
-
-<p align="center">© 2025 Yellorn contributors | <a href="https://yellorn.com/">Project domain</a> | Founder: <a href="https://hoangyell.com">hoangyell.com</a></p>
+AI-First Design: AI agents are the primary users. Workflows must be automatable.
