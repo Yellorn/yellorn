@@ -1,0 +1,374 @@
+// =============================================
+// Yellorn Design System - Card Components
+// =============================================
+
+.card {
+  @include cosmic-card;
+  
+  // Card header
+  &-header {
+    border-bottom: 1px solid var(--border-muted);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
+    
+    .card-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .card-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+      margin: 0;
+    }
+  }
+  
+  // Card body
+  &-body {
+    flex: 1;
+  }
+  
+  // Card footer
+  &-footer {
+    border-top: 1px solid var(--border-muted);
+    padding-top: var(--space-md);
+    margin-top: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+}
+
+// Card variants
+.card-compact {
+  padding: var(--space-md);
+}
+
+.card-spacious {
+  padding: var(--space-2xl);
+}
+
+// Glass card variant
+.card-glass {
+  @include glass-card(0.1, 15px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.2),
+      0 0 30px rgba(var(--color-primary-500), 0.2);
+    transition: all var(--transition-normal);
+  }
+}
+
+// Agent card - Special styling for AI agents
+.card-agent {
+  @include cosmic-card;
+  position: relative;
+  overflow: hidden;
+  
+  // Animated background
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-energy);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    z-index: -2;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+  
+  .agent-avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: var(--bg-nebula);
+    @include flex-center;
+    margin-bottom: var(--space-md);
+    @include cosmic-glow(var(--color-primary-500), 0.3, 15px);
+    
+    .agent-icon {
+      width: 2rem;
+      height: 2rem;
+      color: var(--color-primary-400);
+    }
+  }
+  
+  .agent-name {
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    @include text-gradient-cosmic;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .agent-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    
+    &.status-active {
+      background: rgba(var(--color-success), 0.2);
+      color: var(--color-success);
+      border: 1px solid var(--color-success);
+    }
+    
+    &.status-idle {
+      background: rgba(var(--color-warning), 0.2);
+      color: var(--color-warning);
+      border: 1px solid var(--color-warning);
+    }
+    
+    &.status-offline {
+      background: rgba(var(--color-error), 0.2);
+      color: var(--color-error);
+      border: 1px solid var(--color-error);
+    }
+    
+    .status-indicator {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s infinite;
+    }
+  }
+  
+  .agent-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    
+    .metric {
+      text-align: center;
+      
+      .metric-value {
+        display: block;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary-400);
+      }
+      
+      .metric-label {
+        font-size: var(--font-size-xs);
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+// Dashboard card
+.card-dashboard {
+  @include cosmic-card;
+  @include particle-bg;
+  min-height: 12rem;
+  
+  .dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: between;
+    margin-bottom: var(--space-lg);
+    
+    .dashboard-title {
+      font-family: var(--font-display);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      @include text-gradient-cosmic;
+    }
+    
+    .dashboard-icon {
+      width: 2rem;
+      height: 2rem;
+      color: var(--color-primary-400);
+      @include cosmic-glow(var(--color-primary-500), 0.3, 10px);
+    }
+  }
+  
+  .dashboard-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+// Stats card
+.card-stats {
+  @include dark-glass-card(0.05, 10px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      var(--color-primary-500), 
+      var(--color-secondary-500));
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+  
+  .stats-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    @include text-gradient-cosmic;
+    margin-bottom: var(--space-xs);
+    line-height: 1;
+  }
+  
+  .stats-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .stats-change {
+    margin-top: var(--space-sm);
+    font-size: var(--font-size-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    
+    &.positive {
+      color: var(--color-success);
+    }
+    
+    &.negative {
+      color: var(--color-error);
+    }
+    
+    .change-icon {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+}
+
+// Plot card - For AI agent plots/configurations
+.card-plot {
+  @include cosmic-card;
+  position: relative;
+  
+  .plot-preview {
+    width: 100%;
+    height: 8rem;
+    background: var(--bg-nebula);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    position: relative;
+    overflow: hidden;
+    @include flex-center;
+    
+    .plot-visualization {
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle, 
+        var(--color-primary-400) 0%, 
+        var(--color-secondary-400) 50%, 
+        transparent 100%);
+      border-radius: 50%;
+      animation: plot-pulse 3s ease-in-out infinite;
+    }
+  }
+  
+  .plot-info {
+    .plot-name {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .plot-description {
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+    }
+    
+    .plot-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      
+      .tag {
+        padding: var(--space-xs) var(--space-sm);
+        background: rgba(var(--color-primary-500), 0.1);
+        color: var(--color-primary-400);
+        border-radius: var(--radius-full);
+        font-size: var(--font-size-xs);
+        border: 1px solid rgba(var(--color-primary-500), 0.2);
+      }
+    }
+  }
+}
+
+@keyframes plot-pulse {
+  0%, 100% { 
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+// Responsive card grids
+.card-grid {
+  display: grid;
+  gap: var(--space-lg);
+  
+  &.grid-1 {
+    grid-template-columns: 1fr;
+  }
+  
+  &.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+  
+  &.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+  
+  &.grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  
+  @include respond-to(sm) {
+    gap: var(--space-xl);
+  }
+}

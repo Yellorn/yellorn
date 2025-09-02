@@ -1,0 +1,153 @@
+// =============================================
+// Yellorn Design System - Theme Variants
+// =============================================
+
+// Nebula Theme - Purple/Pink cosmic colors
+.theme-nebula {
+  --color-primary-500: #a855f7;
+  --color-primary-400: #c084fc;
+  --color-primary-600: #9333ea;
+  
+  --color-secondary-500: #ec4899;
+  --color-secondary-400: #f472b6;
+  --color-secondary-600: #db2777;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #1a0f1a 0%, 
+    #2d1b2d 25%, 
+    #1a0f1a 50%, 
+    #2d1b2d 75%, 
+    #1a0f1a 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(168, 85, 247, 0.15) 0%,
+    rgba(236, 72, 153, 0.15) 25%,
+    rgba(147, 51, 234, 0.1) 50%,
+    rgba(219, 39, 119, 0.15) 75%,
+    rgba(168, 85, 247, 0.1) 100%);
+}
+
+// Ocean Theme - Blue/Teal cosmic colors
+.theme-ocean {
+  --color-primary-500: #0891b2;
+  --color-primary-400: #22d3ee;
+  --color-primary-600: #0e7490;
+  
+  --color-secondary-500: #3b82f6;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-600: #2563eb;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #0a1318 0%, 
+    #1e293b 25%, 
+    #0a1318 50%, 
+    #1e293b 75%, 
+    #0a1318 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(8, 145, 178, 0.15) 0%,
+    rgba(59, 130, 246, 0.15) 25%,
+    rgba(14, 116, 144, 0.1) 50%,
+    rgba(37, 99, 235, 0.15) 75%,
+    rgba(8, 145, 178, 0.1) 100%);
+}
+
+// Solar Theme - Orange/Yellow cosmic colors
+.theme-solar {
+  --color-primary-500: #f97316;
+  --color-primary-400: #fb923c;
+  --color-primary-600: #ea580c;
+  
+  --color-secondary-500: #eab308;
+  --color-secondary-400: #facc15;
+  --color-secondary-600: #ca8a04;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #1a0f0a 0%, 
+    #2d1f1a 25%, 
+    #1a0f0a 50%, 
+    #2d1f1a 75%, 
+    #1a0f0a 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(249, 115, 22, 0.15) 0%,
+    rgba(234, 179, 8, 0.15) 25%,
+    rgba(234, 88, 12, 0.1) 50%,
+    rgba(202, 138, 4, 0.15) 75%,
+    rgba(249, 115, 22, 0.1) 100%);
+}
+
+// Forest Theme - Green/Emerald cosmic colors
+.theme-forest {
+  --color-primary-500: #059669;
+  --color-primary-400: #34d399;
+  --color-primary-600: #047857;
+  
+  --color-secondary-500: #10b981;
+  --color-secondary-400: #6ee7b7;
+  --color-secondary-600: #059669;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #0a1a0f 0%, 
+    #1a2d1f 25%, 
+    #0a1a0f 50%, 
+    #1a2d1f 75%, 
+    #0a1a0f 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(5, 150, 105, 0.15) 0%,
+    rgba(16, 185, 129, 0.15) 25%,
+    rgba(4, 120, 87, 0.1) 50%,
+    rgba(5, 150, 105, 0.15) 75%,
+    rgba(16, 185, 129, 0.1) 100%);
+}
+
+// High Contrast Theme - For accessibility
+.theme-high-contrast {
+  --color-primary-500: #00ff00;
+  --color-primary-400: #66ff66;
+  --color-primary-600: #00cc00;
+  
+  --color-secondary-500: #00ffff;
+  --color-secondary-400: #66ffff;
+  --color-secondary-600: #00cccc;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #999999;
+  
+  --border-muted: #666666;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #000000 0%, 
+    #111111 50%, 
+    #000000 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(0, 255, 0, 0.1) 0%,
+    rgba(0, 255, 255, 0.1) 50%,
+    rgba(0, 255, 0, 0.1) 100%);
+}
+
+// Monochrome Theme - For minimalist design
+.theme-monochrome {
+  --color-primary-500: #ffffff;
+  --color-primary-400: #f0f0f0;
+  --color-primary-600: #e0e0e0;
+  
+  --color-secondary-500: #888888;
+  --color-secondary-400: #aaaaaa;
+  --color-secondary-600: #666666;
+  
+  --bg-cosmos: linear-gradient(135deg, 
+    #000000 0%, 
+    #1a1a1a 25%, 
+    #000000 50%, 
+    #1a1a1a 75%, 
+    #000000 100%);
+    
+  --bg-nebula: linear-gradient(45deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(136, 136, 136, 0.05) 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+}

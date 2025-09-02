@@ -1,0 +1,162 @@
+// =============================================
+// Yellorn Design System - Main SCSS Entry Point
+// =============================================
+
+// 1. Abstracts - Variables, mixins, functions
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// 2. Base - Reset, typography, global styles
+@import 'base/reset';
+@import 'base/typography';
+
+// 3. Components - UI components
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/forms';
+@import 'components/navigation';
+@import 'components/utilities';
+
+// 4. Themes - Color variants
+@import 'themes/cosmic-variants';
+
+// 5. Keep Tailwind for compatibility
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// 5. Global overrides and cosmic enhancements
+body {
+  // Enhanced cosmic background
+  background: 
+    var(--bg-cosmos),
+    var(--bg-nebula);
+  background-attachment: fixed;
+  background-size: 100% 100%, 200% 200%;
+  animation: cosmic-drift 20s ease-in-out infinite;
+  
+  // Particle overlay
+  @include particle-bg();
+}
+
+// Cosmic drift animation for background
+@keyframes cosmic-drift {
+  0%, 100% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%, 100% 50%;
+  }
+}
+
+// Enhanced scrollbar for the entire page
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-900);
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-neutral-900);
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--color-primary-400), var(--color-secondary-400));
+  }
+  
+  &:active {
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-secondary-600));
+  }
+}
+
+// Custom selection colors
+::selection {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+  color: white;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+  color: white;
+  text-shadow: none;
+}
+
+// Focus outline improvements
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-500), 0.1);
+}
+
+// Remove focus for mouse users
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+// Reduced motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  body {
+    animation: none;
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary-500: #00ff00;
+    --color-secondary-500: #00ffff;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --border-muted: #666666;
+  }
+}
+
+// Dark mode enhancements (already dark by default, but for contrast)
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Enhance colors for better dark mode experience
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+  }
+}
+
+// Print styles
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .btn,
+  .card,
+  nav,
+  .navbar,
+  .sidebar {
+    box-shadow: none !important;
+    background: white !important;
+    border: 1px solid #ccc !important;
+  }
+  
+  .glow-primary,
+  .glow-secondary,
+  .glow-accent {
+    box-shadow: none !important;
+  }
+}

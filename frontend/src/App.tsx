@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import { Dashboard } from './components/Dashboard';
 import { UniverseView } from './components/UniverseView';
 import { PlotInspector } from './components/PlotInspector';
+import StyleGuide from './components/StyleGuide';
 import { plotsApi } from './api/client';
 import type { PlotData } from './types/api';
 
@@ -17,7 +18,7 @@ const queryClient = new QueryClient({
 });
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'universe'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'universe' | 'styleguide'>('styleguide');
   const [selectedPlot, setSelectedPlot] = useState<PlotData | null>(null);
 
   // Fetch plots data
@@ -39,8 +40,47 @@ function AppContent() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-yellorn-light">
-      {currentView === 'dashboard' ? (
+    <div className="min-h-screen">
+      {/* Navigation Bar - Always visible */}
+      <nav className="navbar">
+        <div className="navbar-container">
+          <div className="navbar-brand">
+            <div className="brand-logo">🌍</div>
+            <span className="brand-text">Yellorn</span>
+          </div>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <button 
+                className={`nav-link ${currentView === 'dashboard' ? 'active' : ''}`}
+                onClick={() => setCurrentView('dashboard')}
+              >
+                Dashboard
+              </button>
+            </li>
+            <li className="nav-item">
+              <button 
+                className={`nav-link ${currentView === 'universe' ? 'active' : ''}`}
+                onClick={() => setCurrentView('universe')}
+              >
+                Universe
+              </button>
+            </li>
+            <li className="nav-item">
+              <button 
+                className={`nav-link ${currentView === 'styleguide' ? 'active' : ''}`}
+                onClick={() => setCurrentView('styleguide')}
+              >
+                Style Guide
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      {currentView === 'styleguide' ? (
+        <StyleGuide />
+      ) : currentView === 'dashboard' ? (
         <Dashboard
           onViewUniverse={() => setCurrentView('universe')}
           selectedPlot={selectedPlot}
@@ -53,16 +93,6 @@ function AppContent() {
               selectedPlot={selectedPlot}
               onPlotSelect={setSelectedPlot}
             />
-          </div>
-          
-          {/* Navigation Bar */}
-          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-20">
-            <button
-              onClick={() => setCurrentView('dashboard')}
-              className="px-6 py-2 bg-black/70 backdrop-blur-sm border border-yellorn-primary/30 text-yellorn-primary rounded-lg hover:bg-yellorn-primary/20 transition-colors"
-            >
-              ← Back to Dashboard
-            </button>
           </div>
           
           {/* Plot Inspector */}

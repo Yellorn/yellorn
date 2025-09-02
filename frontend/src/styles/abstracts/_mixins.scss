@@ -1,0 +1,329 @@
+// =============================================
+// Yellorn Design System - Mixins
+// =============================================
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+// Cosmic glow effect
+@mixin cosmic-glow($color: var(--color-primary-500), $intensity: 0.5, $size: 30px) {
+  box-shadow: 0 0 #{$size} rgba(#{$color}, #{$intensity});
+  transition: box-shadow var(--transition-normal);
+  
+  &:hover {
+    box-shadow: 0 0 #{$size + 10px} rgba(#{$color}, #{$intensity + 0.2});
+  }
+}
+
+// Energy pulse animation
+@mixin energy-pulse($color: var(--color-primary-500)) {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+      transparent, 
+      rgba(#{$color}, 0.3), 
+      transparent);
+    border-radius: inherit;
+    z-index: -1;
+    animation: energy-pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes energy-pulse {
+  0%, 100% { 
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+// Glassmorphism effect
+@mixin glass-card($opacity: 0.1, $blur: 10px) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+// Dark glass variant for cosmic theme
+@mixin dark-glass-card($opacity: 0.1, $blur: 10px) {
+  background: rgba(0, 0, 0, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+// Floating animation
+@mixin floating($duration: 3s, $distance: 10px) {
+  animation: floating #{$duration} ease-in-out infinite;
+  
+  @keyframes floating {
+    0%, 100% { 
+      transform: translateY(0px);
+    }
+    50% { 
+      transform: translateY(-#{$distance});
+    }
+  }
+}
+
+// Gradient text
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+// Neon border effect
+@mixin neon-border($color: var(--color-primary-500), $width: 2px) {
+  border: #{$width} solid transparent;
+  background: linear-gradient(var(--color-neutral-900), var(--color-neutral-900)) padding-box,
+              linear-gradient(45deg, #{$color}, transparent, #{$color}) border-box;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -#{$width};
+    left: -#{$width};
+    right: -#{$width};
+    bottom: -#{$width};
+    background: linear-gradient(45deg, #{$color}, transparent, #{$color});
+    border-radius: inherit;
+    z-index: -1;
+    animation: neon-glow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes neon-glow {
+  from { filter: brightness(1) blur(0px); }
+  to { filter: brightness(1.2) blur(1px); }
+}
+
+// Particle background
+@mixin particle-bg($count: 50) {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, rgba(34, 197, 94, 0.3), transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(34, 211, 238, 0.3), transparent),
+      radial-gradient(1px 1px at 90px 40px, rgba(168, 85, 247, 0.3), transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(244, 114, 182, 0.3), transparent),
+      radial-gradient(2px 2px at 160px 30px, rgba(251, 146, 60, 0.3), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: particle-float 20s linear infinite;
+    z-index: -1;
+  }
+}
+
+@keyframes particle-float {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-200px) translateY(-100px); }
+}
+
+// Button variants
+@mixin btn-primary {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--transition-normal);
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@mixin btn-secondary {
+  background: transparent;
+  color: var(--color-secondary-400);
+  border: 2px solid var(--color-secondary-400);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--color-secondary-400);
+    transition: width var(--transition-normal);
+    z-index: -1;
+  }
+  
+  &:hover {
+    color: var(--color-neutral-900);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-secondary);
+    
+    &::before {
+      width: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Card styles
+@mixin cosmic-card {
+  @include dark-glass-card(0.05, 15px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+      var(--color-primary-500), 
+      var(--color-secondary-500), 
+      var(--color-accent-purple-500));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    z-index: -1;
+  }
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      var(--glow-primary);
+    transition: all var(--transition-normal);
+  }
+}
+
+// Text utilities
+@mixin text-gradient-cosmic {
+  @include gradient-text(
+    linear-gradient(135deg, 
+      var(--color-primary-400),
+      var(--color-secondary-400),
+      var(--color-accent-purple-400))
+  );
+}
+
+@mixin text-glow($color: var(--color-primary-400)) {
+  text-shadow: 0 0 10px rgba(#{$color}, 0.5);
+}
+
+// Layout utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar($width: 8px, $track-color: var(--color-neutral-800), $thumb-color: var(--color-primary-500)) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: var(--radius-full);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: var(--radius-full);
+    transition: filter var(--transition-fast);
+    
+    &:hover {
+      filter: brightness(1.1);
+    }
+  }
+}
