@@ -17,9 +17,9 @@ class Settings(BaseSettings):
     HOST: str = "0.0.0.0"
     PORT: int = 8000
     
-    # Database
-    DATABASE_URL: Optional[str] = None
-    DATABASE_TEST_URL: Optional[str] = None
+    # Database (Removed - Using JSON files for simplicity)
+    # DATABASE_URL: Optional[str] = None
+    # DATABASE_TEST_URL: Optional[str] = None
     
     # Security
     SECRET_KEY: str = "your-secret-key-change-in-production"
@@ -59,19 +59,19 @@ settings = Settings()
 
 
 # Environment-specific configurations
-def get_database_url() -> str:
-    """Get database URL based on environment."""
-    if settings.DATABASE_URL:
-        return settings.DATABASE_URL
-    
-    # Default to SQLite for development
-    if settings.ENVIRONMENT == "development":
-        return "sqlite:///./yellorn_dev.db"
-    elif settings.ENVIRONMENT == "test":
-        return settings.DATABASE_TEST_URL or "sqlite:///./yellorn_test.db"
-    else:
-        # Production should always have DATABASE_URL set
-        raise ValueError("DATABASE_URL must be set for production environment")
+# Database configuration removed - using JSON files for simplicity
+# def get_database_url() -> str:
+#     """Get database URL based on environment."""
+#     if settings.DATABASE_URL:
+#         return settings.DATABASE_URL
+#     
+#     if settings.ENVIRONMENT == "development":
+#         return "sqlite:///./yellorn_dev.db"
+#     elif settings.ENVIRONMENT == "testing":
+#         return settings.DATABASE_TEST_URL or "sqlite:///./yellorn_test.db"
+#     else:
+#         # Production should always have DATABASE_URL set
+#         raise ValueError("DATABASE_URL must be set for production environment")
 
 
 def is_ai_agent_request(user_agent: str) -> bool:

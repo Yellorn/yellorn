@@ -5,10 +5,10 @@ uvicorn[standard]==0.24.0
 pydantic==2.5.0
 pydantic-settings==2.1.0
 
-# Database
-sqlalchemy==2.0.23
-alembic==1.13.0
-asyncpg==0.29.0  # PostgreSQL async driver (replaces databases library for SQLAlchemy 2.0 compatibility)
+# Database (Removed - Using JSON files for simplicity)
+# sqlalchemy==2.0.23
+# alembic==1.13.0
+# asyncpg==0.29.0
 
 # Authentication & Security
 python-jose[cryptography]==3.3.0

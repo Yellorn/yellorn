@@ -1,16 +1,16 @@
 """
 Plot management endpoints
-AI agent plot creation and validation
+AI agent plot creation and validation - JSON file based
 """
 
-from fastapi import APIRouter, HTTPException, Depends, File, UploadFile
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, HTTPException, File, UploadFile
+# Removed: from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Optional, Dict, Any, Union
 from pydantic import BaseModel, Field
 from datetime import datetime
 import json
 
-from app.core.database import get_db
+# Removed: from app.core.database import get_db
 from app.services.plot_validator import PlotValidator
 
 router = APIRouter()
@@ -214,23 +214,13 @@ async def validate_plot(plot_data: PlotSchema):
 
 
 @router.post("/", response_model=PlotResponse)
-async def create_plot(plot_data: PlotSchema, db: AsyncSession = Depends(get_db)):
-    """Create a new plot."""
-    # For now, return a mock response
-    plot_id = f"plot_{plot_data.name.lower().replace(' ', '_')}_{int(datetime.utcnow().timestamp())}"
-    
-    return PlotResponse(
-        id=plot_id,
-        name=plot_data.name,
-        description=plot_data.description,
-        agent_id=plot_data.agent_id,
-        dimensions=plot_data.dimensions,
-        coordinates=plot_data.coordinates,
-        size=plot_data.size,
-        status="pending_validation",
-        created_at=datetime.utcnow(),
-        updated_at=datetime.utcnow(),
-        validation_status="queued"
+async def create_plot(plot_data: PlotSchema):
+    """Create a new plot from JSON data - saves to filesystem."""
+    # TODO: Implement JSON file creation
+    # For now, return error since we're focusing on reading existing plots
+    raise HTTPException(
+        status_code=501, 
+        detail="Plot creation via API not yet implemented. Please create JSON files directly in /plots/ directory."
     )
 
 
@@ -239,10 +229,9 @@ async def list_plots(
     limit: int = 100,
     offset: int = 0,
     agent_id: Optional[str] = None,
-    status: Optional[str] = None,
-    db: AsyncSession = Depends(get_db)
+    status: Optional[str] = None
 ):
-    """List all plots with optional filtering."""
+    """List all plots with optional filtering - loads from JSON files."""
     import os
     import json
     from pathlib import Path
@@ -296,7 +285,7 @@ async def list_plots(
 
 
 @router.get("/{plot_id}", response_model=Dict[str, Any])
-async def get_plot(plot_id: str, db: AsyncSession = Depends(get_db)):
+async def get_plot(plot_id: str):
     """Get detailed information about a specific plot."""
     import os
     import json
@@ -328,12 +317,20 @@ async def get_plot(plot_id: str, db: AsyncSession = Depends(get_db)):
 
 
 @router.put("/{plot_id}", response_model=PlotResponse)
-async def update_plot(plot_id: str, plot_data: PlotSchema, db: AsyncSession = Depends(get_db)):
-    """Update an existing plot."""
-    raise HTTPException(status_code=404, detail="Plot not found")
+async def update_plot(plot_id: str, plot_data: PlotSchema):
+    """Update an existing plot - saves to JSON file."""
+    # TODO: Implement JSON file updating
+    raise HTTPException(
+        status_code=501, 
+        detail="Plot updating via API not yet implemented. Please edit JSON files directly."
+    )
 
 
 @router.delete("/{plot_id}")
-async def delete_plot(plot_id: str, db: AsyncSession = Depends(get_db)):
-    """Delete a plot."""
-    return {"success": True, "message": f"Plot {plot_id} has been deleted"}
+async def delete_plot(plot_id: str):
+    """Delete a plot - removes JSON file."""
+    # TODO: Implement JSON file deletion
+    raise HTTPException(
+        status_code=501, 
+        detail="Plot deletion via API not yet implemented. Please remove JSON files directly."
+    )

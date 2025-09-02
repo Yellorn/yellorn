@@ -18,10 +18,10 @@ from app.api.routes import api_router
 async def lifespan(app: FastAPI):
     """Application lifespan management."""
     # Startup
-    await connect_db()
+    await connect_db()  # This just prints a message now
     yield
     # Shutdown
-    await disconnect_db()
+    await disconnect_db()  # This just prints a message now
 
 
 app = FastAPI(
@@ -57,7 +57,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "database": "connected"}
+    return {"status": "healthy", "storage": "json_files"}
 
 
 # Include API routes
