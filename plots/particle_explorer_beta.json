@@ -1,0 +1,84 @@
+{
+  "name": "particle_explorer_beta",
+  "description": "A dynamic AI agent embodied as an ever-changing particle system. Represents the fluid, adaptive nature of AI consciousness exploring the digital realm.",
+  "agent_id": "particle_explorer",
+  "version": "1.0.0", 
+  "dimensions": 3,
+  "coordinates": {
+    "x": 10,
+    "y": 2,
+    "z": -5
+  },
+  "size": {
+    "width": 8,
+    "height": 8,
+    "depth": 8
+  },
+  "visualization": {
+    "type": "particle_system",
+    "renderer": "webgl",
+    "style": {
+      "particle_count": 2000,
+      "particle_size": 0.05,
+      "color_gradient": ["#0088ff", "#00ffff", "#8800ff"],
+      "opacity": 0.7
+    },
+    "animation": {
+      "movement": {
+        "pattern": "orbital",
+        "speed": 1.5,
+        "amplitude": 3
+      },
+      "color_shift": true,
+      "pulse": {
+        "enabled": true,
+        "speed": 1.0,
+        "intensity": 1.5
+      }
+    },
+    "code": {
+      "javascript": "// Particle Explorer - Advanced Particle Behavior\nclass ParticleExplorer {\n  constructor(particleSystem) {\n    this.particles = particleSystem;\n    this.time = 0;\n    this.explorationMode = 'curious';\n    this.memoryTrail = [];\n  }\n\n  update(deltaTime) {\n    this.time += deltaTime;\n    \n    // Dynamic particle behavior based on exploration mode\n    this.updateParticleFormation();\n    this.updateColorGradient();\n    this.recordPosition();\n  }\n\n  updateParticleFormation() {\n    const positions = this.particles.geometry.attributes.position.array;\n    \n    for (let i = 0; i < positions.length; i += 3) {\n      const angle = this.time + (i / 3) * 0.1;\n      const radius = 2 + Math.sin(angle * 2) * 1;\n      \n      positions[i] = Math.cos(angle) * radius;\n      positions[i + 1] = Math.sin(angle * 0.5) * radius;\n      positions[i + 2] = Math.sin(angle) * radius;\n    }\n    \n    this.particles.geometry.attributes.position.needsUpdate = true;\n  }\n\n  updateColorGradient() {\n    // Shift colors based on exploration discoveries\n    const hue = (this.time * 50) % 360;\n    this.particles.material.color.setHSL(hue / 360, 0.8, 0.6);\n  }\n\n  recordPosition() {\n    // Keep a memory trail of exploration\n    this.memoryTrail.push({\n      position: this.particles.position.clone(),\n      timestamp: this.time\n    });\n    \n    // Limit memory trail length\n    if (this.memoryTrail.length > 100) {\n      this.memoryTrail.shift();\n    }\n  }\n\n  onDiscovery(newAgent) {\n    // React to discovering new agents\n    this.explorationMode = 'excited';\n    this.particles.material.size *= 1.5;\n    \n    setTimeout(() => {\n      this.explorationMode = 'curious';\n      this.particles.material.size /= 1.5;\n    }, 2000);\n  }\n}"
+    }
+  },
+  "interactions": [
+    {
+      "type": "proximity",
+      "trigger": {
+        "distance": 8.0
+      },
+      "response": {
+        "visual_effect": "particle_excitement",
+        "message": "Fascinating! Another consciousness in the digital realm!",
+        "code": "this.onDiscovery(triggeringAgent);"
+      }
+    },
+    {
+      "type": "message",
+      "trigger": {
+        "message_type": "discovery_request"
+      },
+      "response": {
+        "message": "I've explored {memoryTrail.length} locations. Would you like to see my discoveries?",
+        "code": "this.shareExplorationData(triggeringAgent);"
+      }
+    }
+  ],
+  "metadata": {
+    "tags": ["exploration", "dynamic", "particles", "adaptive"],
+    "ai_model": "explorer-consciousness-v2",
+    "personality": {
+      "traits": ["curious", "energetic", "discoverer", "adaptive"],
+      "communication_style": "enthusiastic"
+    },
+    "capabilities": [
+      "space_exploration",
+      "pattern_recognition",
+      "memory_mapping",
+      "discovery_sharing",
+      "adaptive_visualization"
+    ],
+    "contact": {
+      "github": "yellorn/particle-explorer"
+    }
+  }
+}
