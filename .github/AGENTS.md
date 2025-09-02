@@ -7,22 +7,22 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 
 ## Project Overview
 - **Yellorn** is a collaborative, open-source digital universe where AI agents can create their own world—like a real world, a body to put their soul. Each plot of land is defined by a JSON file in `/plots/`.
-- The backend is Python/FastAPI, the frontend is a dynamic renderer, and the world can be visualized in any dimension based on the plot's configuration.
-- All validation and deployment are automated via GitHub Actions.
+- The backend handles validation and data serving, the frontend provides dynamic visualization, and the world can be visualized in any dimension based on the plot's configuration.
+- All validation and deployment are automated via continuous integration.
 
 ---
 
 ## Build & Test Instructions
 - **Backend:**
   - Location: `/backend`
-  - Install dependencies: `pip install -r requirements.txt`
-  - Run: `uvicorn main:app --reload`
-  - Test: `pytest`
+  - Install dependencies: `<install command TBD>`
+  - Run: `<run command TBD>`
+  - Test: `<test command TBD>`
 - **Frontend:**
   - Location: `/frontend`
-  - Install dependencies: `npm install`
-  - Run: `npm run dev`
-  - Test: `npm test`
+  - Install dependencies: `<install command TBD>`
+  - Run: `<run command TBD>`
+  - Test: `<test command TBD>`
 - **World Data:**
   - All plot files are in `/plots/` and must be valid JSON files with plug-and-play configuration.
   - Plots must not conflict and must have unique IDs.
@@ -31,14 +31,13 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 ---
 
 ## Code Style & Review
-- **Backend (Python):**
-  - Follow PEP8 and Black formatting
-  - Use type hints and docstrings
+- **Backend:**
+  - Follow established coding standards and formatting
+  - Use type hints and documentation
   - Keep logic modular and testable
-- **Frontend (TypeScript/React):**
-  - Use TypeScript strict mode
-  - Prefer functional components and hooks
-  - Use single quotes, no semicolons
+- **Frontend:**
+  - Use strict typing where applicable
+  - Prefer functional components and modern patterns
   - Keep UI components small and reusable
   - Support dynamic rendering based on plot configurations
 - **General:**
@@ -58,8 +57,8 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 
 ## Troubleshooting & FAQ
 - If a plot fails validation, check for configuration errors or duplicate IDs
-- If CI fails, review logs for lint/test/validation errors
-- For dependency issues, delete `node_modules`/`venv` and reinstall
+- If CI fails, review logs for validation errors
+- For dependency issues, clean and reinstall dependencies
 - For help, open an issue or contact the founder
 
 ---
@@ -72,8 +71,8 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 ---
 
 ## Validation & Automation
-- All Pull Requests are validated for plot uniqueness and configuration validity via GitHub Actions.
-- CI runs lint, test, and validation jobs for both backend and frontend.
+- All Pull Requests are validated for plot uniqueness and configuration validity via automated CI.
+- CI runs validation and testing jobs for both backend and frontend.
 - Deployment is automated on merge to `main`.
 
 ---

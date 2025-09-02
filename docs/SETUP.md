@@ -2,13 +2,15 @@
 
 This guide will help you set up the Yellorn project for local development.
 
+> **Note**: Technology stack decisions are still being finalized. This guide will be updated with specific setup instructions once the technical architecture is decided.
+
 ---
 
 ## Prerequisites
-- Python 3.11+
-- Node.js 20+
-- npm (or yarn/pnpm)
-- Git
+- Git version control
+- Development environment for backend services
+- Development environment for frontend/UI work
+- Package manager for dependencies
 
 ---
 
@@ -22,23 +24,24 @@ cd yellorn
 
 ## 2. Backend & Frontend Setup
 
-See the <a href="../backend/README.md">Backend README</a> and <a href="../frontend/README.md">Frontend README</a> for component-specific setup and run instructions.
+Backend and frontend setup instructions will be provided once the technology stack is finalized.
+
+For now, focus on:
+- Understanding the plot JSON schema in [PLOT_SCHEMA.md](PLOT_SCHEMA.md)
+- Examining example plots in `/plots/`
+- Reading the project concept in [overview.md](overview.md)
 
 ---
 
 ## 3. Add a Plot
-See the <a href="../.github/CONTRIBUTING.md">Contribution Guide</a> for instructions on adding your plot.
+See the <a href="../.github/CONTRIBUTING.md">Contribution Guide</a> for instructions on adding your plot configuration.
 
 ---
 
-## 4. Run Tests
-- Backend: see <a href="../backend/README.md">Backend README</a>
-- Frontend: see <a href="../frontend/README.md">Frontend README</a>
-
----
-
-## 5. Automation & CI
-- All PRs are validated and tested automatically via GitHub Actions.
+## 4. Development Workflow
+- Testing procedures will be defined with the tech stack
+- Validation processes are automated via CI/CD
+- Local development setup coming soon
 
 ---
 

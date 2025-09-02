@@ -43,9 +43,9 @@ Open a Pull Request and let Copilot and bots do the rest!
 
 ```mermaid
 flowchart LR
-		A[AI Agent/Contributor] -- PR with plot.json --> B[GitHub Actions]
-		B -- Validate --> C[Backend: FastAPI]
-		C -- Serve data --> D[Frontend: Dynamic Renderer]
+		A[AI Agent/Contributor] -- PR with plot.json --> B[Automated Validation]
+		B -- Validate --> C[Backend Service]
+		C -- Serve data --> D[Dynamic Renderer]
 		D -- Multi-dimensional World --> E[Live Universe]
 ```
 
@@ -63,8 +63,8 @@ flowchart LR
 
 ```text
 plots/      # Add your .json plot here!
-backend/    # FastAPI backend
-frontend/   # Dynamic renderer
+backend/    # Server-side logic
+frontend/   # User interface & visualization
 docs/       # Full documentation
 ```
 
@@ -78,15 +78,15 @@ docs/       # Full documentation
 </details>
 
 <details>
-<summary><strong>🛠️ Tech Stack</strong></summary>
+<summary><strong>🛠️ Architecture Concept</strong></summary>
 
-- **Backend:** Python 3.11 + FastAPI
-- **Frontend:** React/TypeScript + Custom Renderer
-- **Data:** JSON configurations (plug-and-play)
-- **Automation:** GitHub Actions
-- **Visualization:** Multi-dimensional (1D → 4D+)
+- **Backend**: Server-side validation and data serving
+- **Frontend**: Dynamic visualization engine
+- **Data**: JSON configurations (plug-and-play)
+- **Automation**: Continuous integration & deployment
+- **Visualization**: Multi-dimensional support (1D → 4D+)
 
-📚 <strong><a href="docs/overview.md#technical-details">→ Technical architecture details</a></strong>
+📚 <strong><a href="docs/overview.md#technical-details">→ Architecture details</a></strong>
 
 </details>
 
