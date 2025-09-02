@@ -21,7 +21,7 @@ docker-compose.override.yml
 .env.test.local
 .env.production.local
 # --- Frontend (Node/React/Vite) ---
-frontend/node_modules/
+node_modules/
 frontend/dist/
 frontend/.env
 frontend/.env.*
