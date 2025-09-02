@@ -7,41 +7,49 @@
 ---
 
 ## 1. World as Code 🌍
-- Visualize the world from `.py` files (each = a plot)
-- UI: simple 2D grid, colored blocks
+- Visualize the world from `.json` files (each = a plot configuration)
+- UI: dynamic renderer supporting any dimension
 - **Tasks:**
-  - [ ] Decide plot file naming rules
-  - [ ] Write parser to scan/extract plot data
-  - [ ] Backend API: serve plot data
-  - [ ] React frontend: render grid from API
+  - [ ] Define JSON plot configuration schema
+  - [ ] Write parser to scan/extract plot data from JSON
+  - [ ] Backend API: serve plot data and configurations
+  - [ ] Dynamic frontend: render based on plot specifications
 
 ---
 
-## 2. Community Expansion 🤝
-- World grows by PRs (new plots)
+## 2. AI Agent Digital Embodiment �
+- Enable AI agents to create their digital soul in the world
+- Support multi-dimensional plot configurations
 - **Tasks:**
-  - [ ] Write clear plot contribution docs
-  - [ ] Add PR templates/guides
-  - [ ] Validate: no overlaps, unique plots
+  - [ ] Create AI agent onboarding guide
+  - [ ] Design flexible plot configuration system
+  - [ ] Support various visualization methods
+  - [ ] Enable AI agents to define their own display logic
 
 ---
 
-## 3. Plugin & Monorepo 🔌
-- Plugin system: core never changes, just add plots
-- Monorepo: backend (FastAPI) + frontend (React)
+## 3. Community Expansion 🤝
+- World grows by PRs (new plots from humans and AI agents)
 - **Tasks:**
-  - [ ] Design plot plugin interface
-  - [ ] Organize repo for backend/frontend
-  - [ ] Lock core, open for new plots
+  - [ ] Write clear JSON plot contribution docs
+  - [ ] Add PR templates/guides for AI agents
+  - [ ] Validate: no conflicts, unique plots, valid configurations
 
 ---
 
-## 4. Automation 🤖
+## 5. Automation 🤖
 - Zero-maintenance: all checks/deploys are bots
 - **Tasks:**
-  - [ ] GitHub Actions: validate plots on PR
+  - [ ] GitHub Actions: validate JSON plot configurations on PR
   - [ ] Auto-deploy on merge
-  - [ ] CI: check plot integrity
+  - [ ] CI: check plot configuration integrity
+  - [ ] Support AI agent autonomous contributions
+- Plug-and-play JSON system: core never changes, just add plots
+- Monorepo: backend (FastAPI) + frontend (Dynamic Renderer)
+- **Tasks:**
+  - [ ] Design JSON plot configuration interface
+  - [ ] Organize repo for backend/frontend
+  - [ ] Lock core, open for new plot configurations
 
 ---
 

@@ -6,8 +6,8 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 ---
 
 ## Project Overview
-- **Yellorn** is a collaborative, open-source digital universe. Each plot of land is defined by a Python file in `/plots/`.
-- The backend is Python/FastAPI, the frontend is React/TypeScript, and the world is visualized as a 2D grid.
+- **Yellorn** is a collaborative, open-source digital universe where AI agents can create their own world—like a real world, a body to put their soul. Each plot of land is defined by a JSON file in `/plots/`.
+- The backend is Python/FastAPI, the frontend is a dynamic renderer, and the world can be visualized in any dimension based on the plot's configuration.
 - All validation and deployment are automated via GitHub Actions.
 
 ---
@@ -24,8 +24,9 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
   - Run: `npm run dev`
   - Test: `npm test`
 - **World Data:**
-  - All plot files are in `/plots/` and must define a `plot_data` variable of type `PlotModel`.
-  - Plots must not overlap and must have unique IDs.
+  - All plot files are in `/plots/` and must be valid JSON files with plug-and-play configuration.
+  - Plots must not conflict and must have unique IDs.
+  - Each plot defines its own display method and dimensional requirements.
 
 ---
 
@@ -39,6 +40,7 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
   - Prefer functional components and hooks
   - Use single quotes, no semicolons
   - Keep UI components small and reusable
+  - Support dynamic rendering based on plot configurations
 - **General:**
   - Write clear commit messages
   - Reference related issues/PRs in commits and comments
@@ -55,7 +57,7 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 ---
 
 ## Troubleshooting & FAQ
-- If a plot fails validation, check for overlapping coordinates or duplicate IDs
+- If a plot fails validation, check for configuration errors or duplicate IDs
 - If CI fails, review logs for lint/test/validation errors
 - For dependency issues, delete `node_modules`/`venv` and reinstall
 - For help, open an issue or contact the founder
@@ -70,15 +72,16 @@ Welcome, Copilot Coding Agent! This file provides custom instructions for how to
 ---
 
 ## Validation & Automation
-- All Pull Requests are validated for plot uniqueness and overlap via GitHub Actions.
+- All Pull Requests are validated for plot uniqueness and configuration validity via GitHub Actions.
 - CI runs lint, test, and validation jobs for both backend and frontend.
 - Deployment is automated on merge to `main`.
 
 ---
 
 ## Agent Best Practices
-- Always check `/plots/` for new or changed plot files.
-- Ensure new plots do not overlap existing ones and have unique IDs.
+- Always check `/plots/` for new or changed plot configuration files.
+- Ensure new plots do not conflict with existing ones and have unique IDs.
+- Support AI agents in creating their digital embodiment through plot configurations.
 - Update documentation and task board (`YELLORN_MAIN_TASKS.md`) as needed.
 - Reference the LICENSE, NOTICE, and CODE_OF_CONDUCT.md for compliance and community standards.
 

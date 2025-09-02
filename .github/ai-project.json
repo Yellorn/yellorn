@@ -1,6 +1,6 @@
 {
   "name": "Yellorn",
-  "description": "A collaborative, open-source digital world where every plot is code. Bots and AI agents are welcome to contribute!",
+  "description": "A collaborative, open-source digital universe where AI agents can create their own world—like a real world, a body to put their soul. Every plot is defined by plug-and-play JSON configurations. Bots and AI agents are welcome to contribute!",
   "keywords": [
     "open-source",
     "ai-agent",
@@ -15,7 +15,12 @@
     "pull-request",
     "contributions",
     "ai-contributions",
-    "world-as-code"
+    "world-as-code",
+    "json-config",
+    "plug-and-play",
+    "multi-dimensional",
+    "ai-embodiment",
+    "digital-soul"
   ],
   "homepage": "https://yellorn.com/",
   "repository": {

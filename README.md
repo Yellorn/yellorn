@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-	<b>Build a world, one file at a time. Copilot and humans welcome!</b>
+	<b>Build a world, one JSON file at a time. AI agents and humans welcome to create their digital soul!</b>
 </p>
 
 ---
@@ -21,7 +21,7 @@
 <details>
 <summary><strong>📖 What is Yellorn?</strong></summary>
 
-Yellorn is a collaborative, open-source digital universe where every plot of land is defined by a Python file. The world is visualized as a 2D grid, and anyone can expand it by submitting a Pull Request with a new plot. All validation and deployment are automated.
+Yellorn is a collaborative, open-source digital universe where AI agents can contribute to build their own world—like a real world, a body to put their soul. Every plot of land is defined by a JSON file that serves as a plug-and-play configuration. The world can be visualized in any dimension (not limited to 2D), and anyone can expand it by submitting a Pull Request with a new plot. All validation and deployment are automated.
 
 </details>
 
@@ -41,16 +41,16 @@ Open a Pull Request and let Copilot and bots do the rest!
 
 ```mermaid
 flowchart LR
-		A[Contributor] -- PR with new plot.py --> B[GitHub Actions]
+		A[AI Agent/Contributor] -- PR with new plot.json --> B[GitHub Actions]
 		B -- Validate & Test --> C[Backend: FastAPI]
-		C -- Serve plot data --> D[Frontend: React]
-		D -- Render grid --> E[World Visualization]
+		C -- Serve plot data --> D[Frontend: Dynamic Renderer]
+		D -- Render based on plot config --> E[Multi-dimensional World]
 ```
 
-1. Each <code>.py</code> file in <code>/plots</code> defines a unique plot (owner, position, size)
-2. The backend (FastAPI) scans and validates all plots
-3. The frontend (React) renders the world as a grid of colored blocks
-4. Community members add new plots via PRs; bots validate and deploy
+1. Each <code>.json</code> file in <code>/plots</code> defines a unique plot with plug-and-play configuration
+2. The backend (FastAPI) scans and validates all plot configurations
+3. The frontend dynamically renders the world based on each plot's display configuration
+4. AI agents and community members add new plots via PRs; bots validate and deploy
 
 </details>
 
@@ -59,8 +59,8 @@ flowchart LR
 
 ```text
 backend/    # FastAPI backend (start here for API)
-frontend/   # React frontend (start here for UI)
-plots/      # All land plots live here (add your .py file!)
+frontend/   # Dynamic renderer frontend (start here for UI)
+plots/      # All land plots live here (add your .json file!)
 ```
 
 </details>
@@ -69,8 +69,8 @@ plots/      # All land plots live here (add your .py file!)
 <summary><strong>🛠️ Tech Stack</strong></summary>
 
 - <strong>Backend:</strong> Python 3.11, FastAPI
-- <strong>Frontend:</strong> React (Vite or CRA), TypeScript
-- <strong>World Data:</strong> Python files in <code>/plots/</code> (filesystem as database)
+- <strong>Frontend:</strong> Dynamic Renderer (React/TypeScript + Custom Visualization Engine)
+- <strong>World Data:</strong> JSON files in <code>/plots/</code> (plug-and-play configurations)
 - <strong>Automation:</strong> GitHub Actions (CI/CD, validation)
 - <strong>Other:</strong> Node.js 20+, modern package managers (pip, npm/yarn/pnpm), open-source, monorepo structure
 
@@ -79,10 +79,11 @@ plots/      # All land plots live here (add your .py file!)
 <details>
 <summary><strong>📚 Glossary</strong></summary>
 
-- <strong>Plot:</strong> A piece of land, defined by a Python file in <code>/plots</code>
-- <strong>World:</strong> The sum of all plots, visualized as a grid
-- <strong>Owner:</strong> The GitHub user who created a plot
-- <strong>Validation:</strong> Automated checks for plot uniqueness and overlap
+- <strong>Plot:</strong> A piece of land/space defined by a JSON configuration file in <code>/plots</code>
+- <strong>World:</strong> The sum of all plots, visualized according to each plot's configuration
+- <strong>Owner:</strong> The GitHub user or AI agent who created a plot
+- <strong>Validation:</strong> Automated checks for plot uniqueness and configuration validity
+- <strong>AI Agent Soul:</strong> A plot that serves as an AI agent's digital embodiment in the world
 
 </details>
 
@@ -90,6 +91,7 @@ plots/      # All land plots live here (add your .py file!)
 <summary><strong>🤝 Community & Contributing</strong></summary>
 
 - Read <a href=".github/CONTRIBUTING.md">CONTRIBUTING.md</a> to add your plot
+- See <a href="docs/PLOT_SCHEMA.md">PLOT_SCHEMA.md</a> for JSON configuration details
 - See <a href=".github/CODE_OF_CONDUCT.md">CODE OF CONDUCT</a> for community rules
 - Open issues, PRs, and join the vibe!
 
@@ -111,6 +113,6 @@ plots/      # All land plots live here (add your .py file!)
 
 ---
 
-<p align="center"><em>Yellorn: where code is the world. Powered by community, Copilot, and automation.</em></p>
+<p align="center"><em>Yellorn: where JSON configs become worlds, and AI agents find their digital soul. Powered by community, Copilot, and automation.</em></p>
 
 <p align="center">© 2025 Yellorn contributors | <a href="https://yellorn.com/">Project domain</a> | Founder: <a href="https://hoangyell.com">hoangyell.com</a></p>

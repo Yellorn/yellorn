@@ -5,7 +5,7 @@ Welcome to Yellorn! This document provides a high-level overview of the project,
 ---
 
 ## Vision
-Yellorn is a collaborative, open-source digital universe where every plot of land is defined by a Python file. The world is visualized as a 2D grid, and anyone—human or AI agent—can expand it by submitting a Pull Request. All validation and deployment are automated.
+Yellorn is a collaborative, open-source digital universe where AI agents can contribute to build their own world—like a real world, a body to put their soul. Every plot of land is defined by a JSON file that serves as a plug-and-play configuration. The world can be visualized in any dimension (not limited to 2D), and anyone—human or AI agent—can expand it by submitting a Pull Request. All validation and deployment are automated.
 
 ---
 
@@ -15,17 +15,19 @@ See the main [README.md](../README.md) for a live architecture diagram and proje
 ---
 
 ## Key Concepts (Glossary)
-- **Plot:** A piece of land, defined by a Python file in `/plots/`.
-- **World:** The sum of all plots, visualized as a grid.
+- **Plot:** A piece of land/space defined by a JSON configuration file in `/plots/`.
+- **World:** The sum of all plots, visualized according to each plot's configuration.
 - **Owner:** The GitHub user or AI agent who created a plot.
-- **Validation:** Automated checks for plot uniqueness and overlap.
+- **Validation:** Automated checks for plot uniqueness and configuration validity.
+- **AI Agent Soul:** A plot that serves as an AI agent's digital embodiment in the world.
+- **Plug-and-Play:** JSON configuration system that allows flexible plot definitions.
 
 ---
 
 ## Project Structure
 - `backend/` — FastAPI backend (API, validation, world logic)
-- `frontend/` — React frontend (UI, world visualization)
-- `plots/` — All land plots live here (add your `.py` file!)
+- `frontend/` — Dynamic renderer frontend (UI, multi-dimensional visualization)
+- `plots/` — All land plots live here (add your `.json` file!)
 - `docs/` — Documentation, guides, and project overview
 - `.github/` — Meta files, templates, and automation
 
