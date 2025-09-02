@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { Globe, Users, Database, Activity, RefreshCw, Clock } from 'lucide-react';
-import { plotsApi, universeApi } from '../api/client';
-import { useTimeBasedTheme } from '../hooks/useTimeBasedTheme';
+import { api } from '../api';
+import { useTimeBasedTheme } from '../lib';
 import type { PlotData } from '../types/api';
 
 interface DashboardProps {
@@ -23,26 +23,24 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
     return () => clearInterval(interval);
   }, []);
   
-  // Fetch universe info
-  const { data: universeInfo } = useQuery({
-    queryKey: ['universe'],
-    queryFn: universeApi.getInfo,
-  });
-  
-  // Fetch plots
-  const { data: plots = [], isLoading: plotsLoading, refetch } = useQuery({
-    queryKey: ['plots'],
-    queryFn: () => plotsApi.list(),
-  });
-  
-  // Fetch plot details for selected plot
-  const { data: plotDetails } = useQuery({
-    queryKey: ['plot', selectedPlot?.agent_id],
-    queryFn: () => selectedPlot ? plotsApi.get(selectedPlot.agent_id) : null,
-    enabled: !!selectedPlot,
+  // Fetch universe information
+  const { data: universeInfo = {} } = useQuery({
+    queryKey: ['universe-info'],
+    queryFn: api.universe.getInfo,
   });
 
-  const stats = [
+  // Fetch plots data
+  const { data: plots = [], isLoading: plotsLoading, refetch } = useQuery({
+    queryKey: ['plots'],
+    queryFn: () => api.plots.list(),
+  });
+
+  // Fetch detailed plot data for selected plot
+  const { data: plotDetails } = useQuery({
+    queryKey: ['plot-details', selectedPlot?.agent_id],
+    queryFn: () => selectedPlot ? api.plots.get(selectedPlot.agent_id) : null,
+    enabled: !!selectedPlot,
+  });  const stats = [
     {
       label: 'AI Agents',
       value: plots.length,
@@ -51,19 +49,19 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
     },
     {
       label: 'Active Plots',
-      value: universeInfo?.statistics.active_plots || plots.length,
+      value: (universeInfo as any)?.statistics?.active_plots || plots.length,
       icon: Database,
       color: 'text-yellorn-secondary',
     },
     {
       label: 'Universe Phase',
-      value: universeInfo?.universe.phase || 'Genesis',
+      value: (universeInfo as any)?.universe?.phase || 'Genesis',
       icon: Globe,
       color: 'text-purple-400',
     },
     {
       label: 'Status',
-      value: universeInfo?.status || 'operational',
+      value: (universeInfo as any)?.status || 'operational',
       icon: Activity,
       color: 'text-green-400',
     },
@@ -144,23 +142,23 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-semibold text-yellorn-light mb-2">
-                {universeInfo.universe.name}
+                {(universeInfo as any)?.universe?.name || 'Yellorn Universe'}
               </h3>
               <p className="text-yellorn-light/80 mb-4">
-                {universeInfo.universe.description}
+                {(universeInfo as any)?.universe?.description || 'A digital universe for AI agents'}
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-yellorn-light/60">Version:</span>
-                  <span className="text-yellorn-light">{universeInfo.universe.version}</span>
+                  <span className="text-yellorn-light">{(universeInfo as any)?.universe?.version || 'v1.0.0'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-yellorn-light/60">Dimensions:</span>
-                  <span className="text-yellorn-light">{universeInfo.universe.dimensions}</span>
+                  <span className="text-yellorn-light">{(universeInfo as any)?.universe?.dimensions || '3D'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-yellorn-light/60">Plot System:</span>
-                  <span className="text-yellorn-light">{universeInfo.universe.plot_system}</span>
+                  <span className="text-yellorn-light">{(universeInfo as any)?.universe?.plot_system || 'JSON-based'}</span>
                 </div>
               </div>
             </div>
@@ -168,7 +166,7 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
             <div>
               <h3 className="text-lg font-semibold text-yellorn-light mb-2">Capabilities</h3>
               <ul className="space-y-1 text-sm">
-                {universeInfo.capabilities.map((capability, index) => (
+                {((universeInfo as any)?.capabilities || ['Real-time visualization', 'Agent embodiment', 'Multi-dimensional plots']).map((capability: any, index: number) => (
                   <li key={index} className="text-yellorn-light/80">
                     ✓ {capability}
                   </li>
@@ -197,7 +195,7 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {plots.map((plot) => (
+            {plots.map((plot: any) => (
               <div
                 key={plot.id}
                 className={`bg-black/30 rounded-lg p-4 border transition-all cursor-pointer hover:bg-black/50 ${
@@ -256,7 +254,7 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
                 <div className="mb-4">
                   <h4 className="text-sm font-semibold text-yellorn-primary mb-2">Tags</h4>
                   <div className="flex flex-wrap gap-1">
-                    {plotDetails.metadata.tags.map((tag, index) => (
+                    {plotDetails.metadata.tags.map((tag: any, index: number) => (
                       <span
                         key={index}
                         className="px-2 py-1 bg-yellorn-primary/20 text-yellorn-primary text-xs rounded"

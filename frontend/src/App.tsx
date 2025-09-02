@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
-import { Dashboard } from './components/Dashboard';
-import { UniverseView } from './components/UniverseView';
-import { PlotInspector } from './components/PlotInspector';
-import { useTimeBasedTheme } from './hooks/useTimeBasedTheme';
-import { plotsApi } from './api/client';
+import { Dashboard, UniverseView, PlotInspector } from './components';
+import { useTimeBasedTheme } from './lib';
+import { api } from './api';
 import type { PlotData } from './types/api';
 
 // Create a query client
@@ -30,15 +28,15 @@ function AppContent() {
   // Fetch plots data
   const { data: plots = [] } = useQuery({
     queryKey: ['plots'],
-    queryFn: () => plotsApi.list(),
+    queryFn: () => api.plots.list(),
   });
 
   // Convert Plot[] to PlotData[] by fetching detailed data for each plot
   const { data: plotsData = [] } = useQuery({
-    queryKey: ['plotsData', plots.map(p => p.id)],
+    queryKey: ['plotsData', plots.map((p: any) => p.id)],
     queryFn: async () => {
       const plotsData = await Promise.all(
-        plots.map(plot => plotsApi.get(plot.agent_id))
+        plots.map((plot: any) => api.plots.get(plot.agent_id))
       );
       return plotsData;
     },
