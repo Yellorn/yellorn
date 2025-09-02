@@ -32,7 +32,6 @@ services:
       - DATABASE_URL=postgresql://yellorn:yellorn_dev_password@database:5432/yellorn
       - ENVIRONMENT=development
       - DEBUG=true
-      - ALLOWED_ORIGINS=http://localhost:3000,http://frontend:3000
     ports:
       - "8000:8000"
     depends_on:
@@ -47,27 +46,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - yellorn-network
-
-  # Frontend
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      target: builder  # Use development stage
-    container_name: yellorn-frontend
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
-      - CHOKIDAR_USEPOLLING=true  # For hot reload in Docker
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules  # Exclude node_modules from bind mount
-    command: npm start
     networks:
       - yellorn-network
 

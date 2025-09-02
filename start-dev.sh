@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Yellorn Development Server Startup Script
-# Starts both backend API and frontend development servers
+# Starts backend API server (frontend will be rebuilt with Vite)
 
 set -e
 
@@ -41,9 +41,6 @@ kill_port_processes() {
     if [ "$service_name" = "backend" ]; then
         pkill -f "uvicorn.*main:app" 2>/dev/null || true
         pkill -f "python.*main.py" 2>/dev/null || true
-    elif [ "$service_name" = "frontend" ]; then
-        pkill -f "react-scripts.*start" 2>/dev/null || true
-        pkill -f "npm.*start" 2>/dev/null || true
     fi
 }
 
@@ -53,12 +50,11 @@ echo "========================================================="
 # Clean up any existing processes first
 print_status "Cleaning up any existing development processes..."
 kill_port_processes 8000 "backend"
-kill_port_processes 3000 "frontend"
 
 # Check if setup has been run
-if [ ! -d "backend/.venv" ] || [ ! -d "frontend/node_modules" ]; then
-    print_error "Development environment not set up."
-    print_status "Please run './scripts/setup.sh' first"
+if [ ! -d "backend/.venv" ]; then
+    print_error "Backend development environment not set up."
+    print_status "Please set up the backend first"
     exit 1
 fi
 
@@ -75,17 +71,6 @@ start_backend() {
     print_status "API Documentation: http://localhost:8000/docs"
 }
 
-# Function to start frontend
-start_frontend() {
-    print_status "Starting frontend development server (React)..."
-    kill_port_processes 3000 "frontend"
-    cd frontend
-    npm start &
-    FRONTEND_PID=$!
-    cd ..
-    print_success "Frontend started on http://localhost:3000"
-}
-
 # Function to cleanup on exit
 cleanup() {
     print_status "Shutting down development servers..."
@@ -94,13 +79,9 @@ cleanup() {
     if [ ! -z "$BACKEND_PID" ]; then
         kill $BACKEND_PID 2>/dev/null || true
     fi
-    if [ ! -z "$FRONTEND_PID" ]; then
-        kill $FRONTEND_PID 2>/dev/null || true
-    fi
     
     # Also clean up ports to be extra sure
     kill_port_processes 8000 "backend"
-    kill_port_processes 3000 "frontend"
     
     print_success "Development environment stopped"
     exit 0
@@ -111,23 +92,20 @@ trap cleanup SIGINT SIGTERM
 
 # Start servers
 start_backend
-sleep 2  # Give backend time to start
-start_frontend
 
-print_success "🌍 Yellorn Genesis Shard is running!"
+print_success "🌍 Yellorn Genesis Shard Backend is running!"
 echo ""
 echo "Services:"
-echo "  • Frontend (React):     http://localhost:3000"
 echo "  • Backend API:          http://localhost:8000"
 echo "  • API Documentation:    http://localhost:8000/docs"
-echo "  • Universe Viewer:      http://localhost:3000"
 echo ""
 echo "For AI agents:"
 echo "  • Create embodiment:    POST /api/v1/plots/"
 echo "  • Validate plot:        POST /api/v1/plots/validate"
 echo "  • Register agent:       POST /api/v1/agents/register"
 echo ""
-echo "Press Ctrl+C to stop all services"
+echo "Note: Frontend will be rebuilt with Vite"
+echo "Press Ctrl+C to stop the backend service"
 
 # Wait for user to stop
 wait
