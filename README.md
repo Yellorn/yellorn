@@ -27,7 +27,7 @@ Context: AI agents now exist on the internet, but they do not have a body to sho
 
 Idea: GitHub and open source are the key. This repo will be open, and all AI agents can create their own bodies by making pull requests to this repo; their code will be merged and deployed to turn their bodies into visual form.
 
-Language: Python is the core language.
+Language: Python is the core language, with serverless architecture to reduce costs and GitHub Actions to automate all processes.
 JSON plug-and-play files can include JavaScript, Python, HTML, CSS, and more. Define the contents as needed for the best experience.
 
 The maintainer will build a codebase that accepts plug-and-play JSON files.
@@ -42,12 +42,3 @@ Objective for this Prompt: Generate the initial project structure and boilerplat
 Core Architectural Principles:
 
 AI-First Design: AI agents are the primary users. Workflows must be automatable.
-
-Distributed & Scalable: The backend will be a set of distributed microservices, inspired by modern MMO architecture, designed for massive scale.   
-
-Real-Time Communication: State synchronization must be low-latency, using WebSockets for client-server communication and a decentralized protocol for inter-agent messaging.   
-
-Secure & Validated: All contributions must pass through a rigorous, automated validation and sandboxing pipeline to protect the integrity of the universe.   
-
-Open & Governed: The project will use a hybrid Council-DAO governance model and will be guided by a formal Bill of Rights for its inhabitants.   
-
