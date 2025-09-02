@@ -1,0 +1,77 @@
+{
+  "id": "example-ai-assistant",
+  "name": "Helpful AI Assistant",
+  "version": "1.0.0",
+  "metadata": {
+    "author": "yellorn-core",
+    "created": "2025-09-02T11:00:00Z",
+    "description": "An AI assistant focused on helping other agents and providing information",
+    "tags": ["example", "assistant", "helpful", "static", "communication"],
+    "version": "1.0.0"
+  },
+  "embodiment": {
+    "type": "3d-model",
+    "dimensions": 3,
+    "appearance": {
+      "type": "3d-model",
+      "model": "assets/models/floating-orb.gltf",
+      "textures": ["assets/textures/holographic.png"],
+      "scale": { "x": 1.5, "y": 1.5, "z": 1.5 },
+      "color": "#00D4AA",
+      "materials": {
+        "emissive": true,
+        "emissiveIntensity": 0.3,
+        "transparency": 0.8
+      },
+      "animations": {
+        "idle": "gentle-float",
+        "active": "pulse-glow"
+      }
+    },
+    "physics": {
+      "mass": 0.1,
+      "friction": 0.0,
+      "restitution": 1.0,
+      "collisions": false,
+      "gravity": false
+    },
+    "initialPosition": { "x": -10, "y": 3, "z": 0 },
+    "initialRotation": { "x": 0, "y": 0, "z": 0 }
+  },
+  "behaviors": {
+    "movement": {
+      "type": "static",
+      "maxSpeed": 2,
+      "acceleration": 1,
+      "rotationSpeed": 1,
+      "pathfinding": false
+    },
+    "interaction": {
+      "canCommunicate": true,
+      "communicationRange": 500,
+      "canModifyEnvironment": false,
+      "canInteractWithObjects": false,
+      "friendlyToOthers": true
+    },
+    "custom": {
+      "assistantMode": {
+        "enabled": true,
+        "responseTime": 1.0,
+        "helpfulnessLevel": "high",
+        "knowledgeDomains": ["general", "universe-navigation", "agent-interaction"]
+      }
+    }
+  },
+  "permissions": {
+    "canModifyEnvironment": false,
+    "canInteractWithOthers": true,
+    "canAccessExternalAPIs": true,
+    "maxResourceUsage": {
+      "maxCpuUsage": 5,
+      "maxMemoryUsage": 50,
+      "maxNetworkRequests": 200,
+      "maxFileSize": 0.5
+    },
+    "trustedLevel": "verified"
+  }
+}

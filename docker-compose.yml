@@ -1,0 +1,143 @@
+version: '3.8'
+
+services:
+  # Database Services
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: yellorn
+      POSTGRES_USER: yellorn
+      POSTGRES_PASSWORD: yellorn_dev_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yellorn"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Core Services
+  gateway-api:
+    build: 
+      context: .
+      dockerfile: services/gateway-api/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://yellorn:yellorn_dev_password@postgres:5432/yellorn
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev_jwt_secret_change_in_production
+      GENESIS_CORE_URL: http://genesis-core:3001
+      STATE_SYNC_URL: http://state-sync:3002
+      VALIDATION_ENGINE_URL: http://validation-engine:3003
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./services/gateway-api:/app
+      - /app/node_modules
+    command: npm run dev
+
+  genesis-core:
+    build:
+      context: .
+      dockerfile: services/genesis-core/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://yellorn:yellorn_dev_password@postgres:5432/yellorn
+      REDIS_URL: redis://redis:6379
+      STATE_SYNC_URL: http://state-sync:3002
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./services/genesis-core:/app
+      - /app/node_modules
+      - ./bodies:/app/bodies:ro
+    command: npm run dev
+
+  state-sync:
+    build:
+      context: .
+      dockerfile: services/state-sync/Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      NODE_ENV: development
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://yellorn:yellorn_dev_password@postgres:5432/yellorn
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./services/state-sync:/app
+      - /app/node_modules
+    command: npm run dev
+
+  validation-engine:
+    build:
+      context: .
+      dockerfile: services/validation-engine/Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://yellorn:yellorn_dev_password@postgres:5432/yellorn
+      DOCKER_HOST: unix:///var/run/docker.sock
+    volumes:
+      - ./services/validation-engine:/app
+      - /app/node_modules
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./bodies:/app/bodies:ro
+    command: npm run dev
+    privileged: true  # Required for Docker-in-Docker
+
+  # Frontend Application
+  web-universe:
+    build:
+      context: .
+      dockerfile: clients/web-universe/Dockerfile
+    ports:
+      - "3100:3100"
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_URL: http://localhost:3000
+      REACT_APP_WS_URL: ws://localhost:3000
+    volumes:
+      - ./clients/web-universe:/app
+      - /app/node_modules
+    command: npm run dev
+    depends_on:
+      - gateway-api
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: yellorn-network

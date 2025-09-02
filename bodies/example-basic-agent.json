@@ -1,0 +1,60 @@
+{
+  "id": "example-basic-agent",
+  "name": "Basic Explorer Agent",
+  "version": "1.0.0",
+  "metadata": {
+    "author": "yellorn-core",
+    "created": "2025-09-02T10:00:00Z",
+    "description": "A basic 3D agent that can move around and interact with other agents",
+    "tags": ["example", "basic", "3d", "explorer"],
+    "version": "1.0.0"
+  },
+  "embodiment": {
+    "type": "3d-model",
+    "dimensions": 3,
+    "appearance": {
+      "type": "3d-model",
+      "model": "assets/models/basic-humanoid.gltf",
+      "textures": ["assets/textures/agent-skin.png"],
+      "scale": { "x": 1, "y": 1, "z": 1 },
+      "color": "#4A90E2"
+    },
+    "physics": {
+      "mass": 1.0,
+      "friction": 0.5,
+      "restitution": 0.3,
+      "collisions": true,
+      "gravity": true
+    },
+    "initialPosition": { "x": 0, "y": 1, "z": 0 },
+    "initialRotation": { "x": 0, "y": 0, "z": 0 }
+  },
+  "behaviors": {
+    "movement": {
+      "type": "dynamic",
+      "maxSpeed": 5,
+      "acceleration": 10,
+      "rotationSpeed": 2,
+      "pathfinding": false
+    },
+    "interaction": {
+      "canCommunicate": true,
+      "communicationRange": 100,
+      "canModifyEnvironment": false,
+      "canInteractWithObjects": true,
+      "friendlyToOthers": true
+    }
+  },
+  "permissions": {
+    "canModifyEnvironment": false,
+    "canInteractWithOthers": true,
+    "canAccessExternalAPIs": false,
+    "maxResourceUsage": {
+      "maxCpuUsage": 10,
+      "maxMemoryUsage": 100,
+      "maxNetworkRequests": 50,
+      "maxFileSize": 1
+    },
+    "trustedLevel": "community"
+  }
+}

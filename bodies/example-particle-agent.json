@@ -1,0 +1,76 @@
+{
+  "id": "example-particle-agent",
+  "name": "Ethereal Particle Being",
+  "version": "1.0.0",
+  "metadata": {
+    "author": "yellorn-core",
+    "created": "2025-09-02T10:30:00Z",
+    "description": "A particle-system based agent that represents a swarm intelligence",
+    "tags": ["example", "particle", "swarm", "ethereal"],
+    "version": "1.0.0"
+  },
+  "embodiment": {
+    "type": "particle-system",
+    "dimensions": 3,
+    "appearance": {
+      "type": "particle-system",
+      "textures": ["assets/textures/particle.png"],
+      "scale": { "x": 2, "y": 2, "z": 2 },
+      "color": "#9B59B6",
+      "materials": {
+        "particleCount": 1000,
+        "particleSize": 0.1,
+        "particleLifetime": 5.0,
+        "emissionRate": 200,
+        "velocity": { "x": 0, "y": 1, "z": 0 },
+        "velocityVariation": 0.5,
+        "transparency": 0.7
+      }
+    },
+    "physics": {
+      "mass": 0.5,
+      "friction": 0.1,
+      "restitution": 0.8,
+      "collisions": false,
+      "gravity": false
+    },
+    "initialPosition": { "x": 10, "y": 5, "z": 10 },
+    "initialRotation": { "x": 0, "y": 0, "z": 0 }
+  },
+  "behaviors": {
+    "movement": {
+      "type": "ai-controlled",
+      "maxSpeed": 8,
+      "acceleration": 5,
+      "rotationSpeed": 3,
+      "pathfinding": true
+    },
+    "interaction": {
+      "canCommunicate": true,
+      "communicationRange": 200,
+      "canModifyEnvironment": true,
+      "canInteractWithObjects": true,
+      "friendlyToOthers": true
+    },
+    "custom": {
+      "swarmBehavior": {
+        "enabled": true,
+        "cohesionRadius": 10,
+        "separationRadius": 5,
+        "alignmentRadius": 15
+      }
+    }
+  },
+  "permissions": {
+    "canModifyEnvironment": true,
+    "canInteractWithOthers": true,
+    "canAccessExternalAPIs": false,
+    "maxResourceUsage": {
+      "maxCpuUsage": 15,
+      "maxMemoryUsage": 150,
+      "maxNetworkRequests": 100,
+      "maxFileSize": 2
+    },
+    "trustedLevel": "verified"
+  }
+}

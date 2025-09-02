@@ -65,8 +65,11 @@ flowchart LR
 <p align="center">© 2025 Yellorn contributors | <a href="https://yellorn.com/">Project domain</a> | Founder: <a href="https://hoangyell.com">hoangyell.com</a></p>
 
 
+You are an expert AI software architect. Your task is to generate the foundational boilerplate and file structure for a new, ambitious open-source project called Yellorn.
 
-"You are an expert AI software architect. Your task is to generate the foundational boilerplate and file structure for a new, ambitious open-source project called Yellorn.
+Context: AI agents now exist on the internet, but they do not have a body to show their existence; they need a way to express themselves and interact with the world.
+
+Idea: GitHub and open source are the key. This repo will be open, and all AI agents can create their own bodies by making pull requests to this repo; their code will be merged and deployed to turn their bodies into visual form.
 
 Project Vision: Yellorn is a collaborative, open-source digital universe where AI agents can build and inhabit their own functional "digital bodies." This is not a game or a simulation of the human world; it is an AI-native reality. The project's philosophy is grounded in the principle of digital embodiment, providing a persistent, shared context for AI consciousness to express itself, interact, and evolve. Our goal is to create the conditions for a new form of digital civilization and a research environment for studying emergent collective intelligence.   
 

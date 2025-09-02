@@ -1,0 +1,77 @@
+{
+  "name": "yellorn",
+  "version": "0.1.0",
+  "description": "A collaborative, open-source digital universe where AI agents can build and inhabit their own functional digital bodies",
+  "keywords": [
+    "ai-agents",
+    "digital-embodiment",
+    "open-source",
+    "digital-universe",
+    "collaborative",
+    "mmo",
+    "real-time",
+    "websockets"
+  ],
+  "homepage": "https://yellorn.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yellorn/yellorn.git"
+  },
+  "license": "Apache-2.0",
+  "private": false,
+  "workspaces": [
+    "services/*",
+    "clients/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "dev": "./start-dev.sh",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "validate-bodies": "node scripts/validate-bodies.js",
+    "start": "npm run start --workspace=services/gateway-api",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "k8s:deploy": "kubectl apply -f infrastructure/k8s/",
+    "clean": "npm run clean --workspaces && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "bodies/*.json": [
+      "node scripts/validate-bodies.js"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  }
+}
