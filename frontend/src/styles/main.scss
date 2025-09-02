@@ -127,41 +127,56 @@ body {
   }
 }
 
-// Snow theme enhancements
-.theme-snow {
+// Light theme enhancements
+.theme-light {
   body {
-    // Light background for snow theme
     background: var(--bg-cosmos);
     color: var(--text-primary);
   }
   
-  // Enhance glass effect for snow theme
   .card-glass {
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
   }
   
-  // Snow-specific animations
   .btn-cosmic:hover {
     transform: translateY(-2px) scale(1.02);
     transition: all 0.3s ease;
   }
   
-  // Subtle shadows for depth
   .card {
     box-shadow: 
       0 4px 6px rgba(59, 130, 246, 0.05),
       0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
-  // Enhanced focus states for accessibility
   input:focus,
   button:focus,
   select:focus,
   textarea:focus {
     outline: 2px solid var(--color-primary-500);
     outline-offset: 2px;
+  }
+}
+
+// Dark theme enhancements (default cosmic theme)
+.theme-dark {
+  body {
+    background: var(--bg-cosmos);
+    color: var(--text-primary);
+  }
+  
+  .card-glass {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .cosmic-glow {
+    box-shadow: 
+      0 0 20px rgba(99, 102, 241, 0.3),
+      0 0 40px rgba(236, 72, 153, 0.2);
   }
 }
 

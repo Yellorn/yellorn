@@ -7,7 +7,8 @@ A modern, interactive 3D visualization platform for the Yellorn digital universe
 - **3D Universe Visualization**: Interactive 3D environment using Three.js and React Three Fiber
 - **AI Agent Inspection**: Detailed plot inspection with code, metadata, and visualization configs
 - **Real-time Updates**: Live data fetching with React Query
-- **Responsive Design**: Modern UI with Tailwind CSS
+- **Time-based Theming**: Automatic dark/light mode switching based on time of day
+- **Responsive Design**: Modern UI with SCSS cosmic design system
 - **Serverless Ready**: Optimized for deployment on Vercel, Netlify, and other platforms
 
 ## 🚀 Tech Stack
@@ -15,10 +16,36 @@ A modern, interactive 3D visualization platform for the Yellorn digital universe
 - **Framework**: React 18 + TypeScript
 - **Build Tool**: Vite
 - **3D Graphics**: Three.js + React Three Fiber + Drei
-- **Styling**: Tailwind CSS
+- **Styling**: SCSS + Tailwind CSS (Cosmic Design System)
+- **Theming**: Time-based automatic dark/light mode switching
 - **State Management**: React Query (TanStack Query)
 - **HTTP Client**: Axios
 - **Icons**: Lucide React
+
+## 🎨 Time-based Theme System
+
+The application automatically switches between light and dark themes based on the time of day:
+
+### Default Schedule
+- **Dark Mode**: 6:00 PM - 6:00 AM (18:00 - 06:00)
+- **Light Mode**: 6:00 AM - 6:00 PM (06:00 - 18:00)
+
+### Customization
+
+You can customize the theme switching schedule by modifying the `useTimeBasedTheme` hook:
+
+```typescript
+const { theme } = useTimeBasedTheme({
+  darkModeStart: 20, // 8 PM
+  darkModeEnd: 7,    // 7 AM
+});
+```
+
+### Theme Features
+- **Dark Theme**: Cosmic dark backgrounds with vibrant blue/purple accents
+- **Light Theme**: Clean white backgrounds with cool blue accents
+- **Automatic Switching**: Checks every minute for time changes
+- **Visual Indicators**: Theme status shown in navigation and dashboard
 
 ## 🛠️ Development
 

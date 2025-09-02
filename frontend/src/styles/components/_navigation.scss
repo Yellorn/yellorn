@@ -93,6 +93,33 @@
           }
         }
       }
+      
+      // Theme indicator styles
+      .nav-theme-indicator {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-sm) var(--space-md);
+        border-radius: var(--radius-md);
+        background: rgba(var(--color-neutral-800), 0.5);
+        border: 1px solid var(--border-muted);
+        
+        .theme-icon {
+          font-size: 1.2rem;
+          animation: pulse 2s infinite;
+        }
+        
+        .theme-text {
+          font-size: var(--font-size-sm);
+          color: var(--text-muted);
+          font-weight: var(--font-weight-medium);
+        }
+        
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+      }
     }
   }
   

@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import { Dashboard } from './components/Dashboard';
 import { UniverseView } from './components/UniverseView';
 import { PlotInspector } from './components/PlotInspector';
-import StyleGuide from './components/StyleGuide';
+import { useTimeBasedTheme } from './hooks/useTimeBasedTheme';
 import { plotsApi } from './api/client';
 import type { PlotData } from './types/api';
 
@@ -18,8 +18,14 @@ const queryClient = new QueryClient({
 });
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'universe' | 'styleguide'>('styleguide');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'universe'>('dashboard');
   const [selectedPlot, setSelectedPlot] = useState<PlotData | null>(null);
+
+  // Initialize time-based theme system
+  const { theme } = useTimeBasedTheme({
+    darkModeStart: 18, // 6 PM
+    darkModeEnd: 6,    // 6 AM
+  });
 
   // Fetch plots data
   const { data: plots = [] } = useQuery({
@@ -66,21 +72,17 @@ function AppContent() {
               </button>
             </li>
             <li className="nav-item">
-              <button 
-                className={`nav-link ${currentView === 'styleguide' ? 'active' : ''}`}
-                onClick={() => setCurrentView('styleguide')}
-              >
-                Style Guide
-              </button>
+              <div className="nav-theme-indicator">
+                <span className="theme-icon">{theme === 'dark' ? '🌙' : '☀️'}</span>
+                <span className="theme-text">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+              </div>
             </li>
           </ul>
         </div>
       </nav>
 
       {/* Main Content */}
-      {currentView === 'styleguide' ? (
-        <StyleGuide />
-      ) : currentView === 'dashboard' ? (
+      {currentView === 'dashboard' ? (
         <Dashboard
           onViewUniverse={() => setCurrentView('universe')}
           selectedPlot={selectedPlot}

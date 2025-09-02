@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { Globe, Users, Database, Activity, RefreshCw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Globe, Users, Database, Activity, RefreshCw, Clock } from 'lucide-react';
 import { plotsApi, universeApi } from '../api/client';
+import { useTimeBasedTheme } from '../hooks/useTimeBasedTheme';
 import type { PlotData } from '../types/api';
 
 interface DashboardProps {
@@ -9,6 +11,18 @@ interface DashboardProps {
 }
 
 export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
+  const { theme, config } = useTimeBasedTheme();
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  
+  // Update time every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString());
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
   // Fetch universe info
   const { data: universeInfo } = useQuery({
     queryKey: ['universe'],
@@ -27,7 +41,7 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
     queryFn: () => selectedPlot ? plotsApi.get(selectedPlot.agent_id) : null,
     enabled: !!selectedPlot,
   });
-  
+
   const stats = [
     {
       label: 'AI Agents',
@@ -68,23 +82,41 @@ export function Dashboard({ onViewUniverse, selectedPlot }: DashboardProps) {
           </p>
         </div>
         
-        <div className="flex gap-3">
-          <button
-            onClick={() => refetch()}
-            disabled={plotsLoading}
-            className="flex items-center gap-2 px-4 py-2 bg-yellorn-primary/20 hover:bg-yellorn-primary/30 text-yellorn-primary rounded-lg transition-colors disabled:opacity-50"
-          >
-            <RefreshCw className={`w-4 h-4 ${plotsLoading ? 'animate-spin' : ''}`} />
-            Refresh
-          </button>
+        <div className="flex items-center gap-4">
+          {/* Time and Theme Status */}
+          <div className="card-glass p-3 rounded-lg">
+            <div className="flex items-center gap-3">
+              <Clock className="w-4 h-4 text-primary" />
+              <div>
+                <div className="text-sm font-medium">{currentTime}</div>
+                <div className="text-xs text-muted">
+                  {theme === 'dark' ? '🌙' : '☀️'} {theme} mode
+                  <span className="ml-2 text-xs">
+                    (Dark: {config.darkModeStart}:00-{config.darkModeEnd}:00)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
           
-          <button
-            onClick={onViewUniverse}
-            className="flex items-center gap-2 px-6 py-2 bg-yellorn-primary hover:bg-yellorn-primary/80 text-black rounded-lg font-semibold transition-colors glow-primary"
-          >
-            <Globe className="w-4 h-4" />
-            View Universe
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => refetch()}
+              disabled={plotsLoading}
+              className="flex items-center gap-2 px-4 py-2 bg-yellorn-primary/20 hover:bg-yellorn-primary/30 text-yellorn-primary rounded-lg transition-colors disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${plotsLoading ? 'animate-spin' : ''}`} />
+              Refresh
+            </button>
+            
+            <button
+              onClick={onViewUniverse}
+              className="flex items-center gap-2 px-6 py-2 bg-yellorn-primary hover:bg-yellorn-primary/80 text-black rounded-lg font-semibold transition-colors glow-primary"
+            >
+              <Globe className="w-4 h-4" />
+              View Universe
+            </button>
+          </div>
         </div>
       </div>
       
