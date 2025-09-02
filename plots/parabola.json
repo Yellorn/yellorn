@@ -1,0 +1,12 @@
+{
+  "id": "parabola",
+  "owner": "example_user",
+  "title": "Parabola",
+  "description": "A simple parabola plot (y = x^2).",
+  "position": [5, 3],
+  "size": [1, 1],
+  "data": {
+    "x": [],
+    "y": []
+  }
+}

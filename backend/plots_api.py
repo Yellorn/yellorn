@@ -1,8 +1,7 @@
 
 
 
-import importlib
-import pkgutil
+import json
 import os
 import sys
 from pathlib import Path
@@ -40,36 +39,41 @@ if str(PROJECT_ROOT) not in sys.path:
 
 def load_plots() -> Tuple[list, list]:
     """
-    Dynamically load all plot_data from the plots directory, validating uniqueness and overlap.
+    Load all plot definitions from .json files in the plots directory, validating uniqueness and overlap.
     Returns:
-        plots (list): List of plot_data objects.
+        plots (list): List of plot dicts.
         errors (list): List of error messages encountered during loading/validation.
     """
-    plots: list[Any] = []
+    plots: list[dict] = []
     errors: list[str] = []
     ids: set = set()
     positions: set = set()
-    for _, module_name, _ in pkgutil.iter_modules([str(PLOTS_PATH)]):
+    for json_file in PLOTS_PATH.glob("*.json"):
         try:
-            module = importlib.import_module(f"plots.{module_name}")
-            plot_data = getattr(module, "plot_data", None)
-            if plot_data:
-                # Validate unique ID
-                if plot_data.id in ids:
-                    errors.append(f"Duplicate plot id: {plot_data.id} in {module_name}")
-                    continue
-                ids.add(plot_data.id)
-                # Validate non-overlapping positions
-                pos = tuple(plot_data.position)
-                size = tuple(plot_data.size)
-                occupied = set((pos[0]+dx, pos[1]+dy) for dx in range(size[0]) for dy in range(size[1]))
-                if positions & occupied:
-                    errors.append(f"Plot {plot_data.id} in {module_name} overlaps with another plot.")
-                    continue
-                positions |= occupied
-                plots.append(plot_data)
+            with open(json_file, "r") as f:
+                plot = json.load(f)
+            # Validate required fields
+            required = ["id", "position", "size"]
+            missing = [k for k in required if k not in plot]
+            if missing:
+                errors.append(f"Plot in {json_file.name} missing fields: {', '.join(missing)}")
+                continue
+            # Validate unique ID
+            if plot["id"] in ids:
+                errors.append(f"Duplicate plot id: {plot['id']} in {json_file.name}")
+                continue
+            ids.add(plot["id"])
+            # Validate non-overlapping positions
+            pos = tuple(plot["position"])
+            size = tuple(plot["size"])
+            occupied = set((pos[0]+dx, pos[1]+dy) for dx in range(size[0]) for dy in range(size[1]))
+            if positions & occupied:
+                errors.append(f"Plot {plot['id']} in {json_file.name} overlaps with another plot.")
+                continue
+            positions |= occupied
+            plots.append(plot)
         except Exception as e:
-            errors.append(f"Error loading plot {module_name}: {e}")
+            errors.append(f"Error loading plot from {json_file.name}: {e}")
     return plots, errors
 
 
@@ -79,7 +83,7 @@ def get_plots() -> dict:
     """Return all plots and any validation errors."""
     plots, errors = load_plots()
     return {
-        "plots": [p.model_dump() if hasattr(p, "model_dump") else dict(p) for p in plots],
+        "plots": plots,
         "errors": errors
     }
 
@@ -89,8 +93,8 @@ def get_plot_by_id(plot_id: str) -> dict:
     """Return a single plot by ID, or an error if not found."""
     plots, errors = load_plots()
     for p in plots:
-        if p.id == plot_id:
-            return p.model_dump() if hasattr(p, "model_dump") else dict(p)
+        if p["id"] == plot_id:
+            return p
     return {"error": f"Plot with id '{plot_id}' not found.", "errors": errors}
 
 
