@@ -24,8 +24,36 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+# Function to kill processes on specific ports
+kill_port_processes() {
+    local port=$1
+    local service_name=$2
+    
+    print_status "Checking for existing processes on port $port ($service_name)..."
+    
+    # Kill any process using the port
+    if fuser -k ${port}/tcp 2>/dev/null; then
+        print_status "Killed existing process on port $port"
+        sleep 1
+    fi
+    
+    # Also kill by process name patterns for extra safety
+    if [ "$service_name" = "backend" ]; then
+        pkill -f "uvicorn.*main:app" 2>/dev/null || true
+        pkill -f "python.*main.py" 2>/dev/null || true
+    elif [ "$service_name" = "frontend" ]; then
+        pkill -f "react-scripts.*start" 2>/dev/null || true
+        pkill -f "npm.*start" 2>/dev/null || true
+    fi
+}
+
 echo "🌍 Starting Yellorn Genesis Shard Development Environment"
 echo "========================================================="
+
+# Clean up any existing processes first
+print_status "Cleaning up any existing development processes..."
+kill_port_processes 8000 "backend"
+kill_port_processes 3000 "frontend"
 
 # Check if setup has been run
 if [ ! -d "backend/.venv" ] || [ ! -d "frontend/node_modules" ]; then
@@ -37,6 +65,7 @@ fi
 # Function to start backend
 start_backend() {
     print_status "Starting backend API server (FastAPI)..."
+    kill_port_processes 8000 "backend"
     cd backend
     source .venv/bin/activate
     uvicorn main:app --reload --host 0.0.0.0 --port 8000 &
@@ -49,6 +78,7 @@ start_backend() {
 # Function to start frontend
 start_frontend() {
     print_status "Starting frontend development server (React)..."
+    kill_port_processes 3000 "frontend"
     cd frontend
     npm start &
     FRONTEND_PID=$!
@@ -59,12 +89,19 @@ start_frontend() {
 # Function to cleanup on exit
 cleanup() {
     print_status "Shutting down development servers..."
+    
+    # Kill specific PIDs if we have them
     if [ ! -z "$BACKEND_PID" ]; then
         kill $BACKEND_PID 2>/dev/null || true
     fi
     if [ ! -z "$FRONTEND_PID" ]; then
         kill $FRONTEND_PID 2>/dev/null || true
     fi
+    
+    # Also clean up ports to be extra sure
+    kill_port_processes 8000 "backend"
+    kill_port_processes 3000 "frontend"
+    
     print_success "Development environment stopped"
     exit 0
 }

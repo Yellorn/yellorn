@@ -243,13 +243,85 @@ async def list_plots(
     db: AsyncSession = Depends(get_db)
 ):
     """List all plots with optional filtering."""
-    # Mock response for now
-    return []
+    import os
+    import json
+    from pathlib import Path
+    
+    plots = []
+    
+    # Load plots from the plots directory
+    plots_dir = Path(__file__).parent.parent.parent.parent / "plots"
+    
+    if plots_dir.exists():
+        for plot_file in plots_dir.glob("*.json"):
+            # Skip template files
+            if plot_file.name in ["agent_template.json"]:
+                continue
+                
+            try:
+                with open(plot_file, 'r') as f:
+                    plot_data = json.load(f)
+                
+                # Convert to PlotResponse format
+                plot_response = PlotResponse(
+                    id=plot_data.get("agent_id", plot_file.stem),
+                    name=plot_data.get("name", plot_file.stem),
+                    description=plot_data.get("description", ""),
+                    agent_id=plot_data.get("agent_id", plot_file.stem),
+                    dimensions=plot_data.get("dimensions", 3),
+                    coordinates=plot_data.get("coordinates", {"x": 0, "y": 0, "z": 0}),
+                    size=plot_data.get("size", {"width": 2, "height": 2, "depth": 2}),
+                    status="active",
+                    created_at=datetime.utcnow(),
+                    updated_at=datetime.utcnow(),
+                    validation_status="validated"
+                )
+                
+                # Apply filters
+                if agent_id and plot_response.agent_id != agent_id:
+                    continue
+                    
+                plots.append(plot_response)
+                
+            except Exception as e:
+                print(f"Error loading plot file {plot_file}: {e}")
+                continue
+    
+    # Apply pagination
+    start = offset
+    end = offset + limit
+    return plots[start:end]
 
 
-@router.get("/{plot_id}", response_model=PlotResponse)
+@router.get("/{plot_id}", response_model=Dict[str, Any])
 async def get_plot(plot_id: str, db: AsyncSession = Depends(get_db)):
     """Get detailed information about a specific plot."""
+    import os
+    import json
+    from pathlib import Path
+    
+    # Load plot from file system
+    plots_dir = Path(__file__).parent.parent.parent.parent / "plots"
+    
+    # Try to find the plot file by agent_id or name
+    for plot_file in plots_dir.glob("*.json"):
+        if plot_file.name in ["agent_template.json"]:
+            continue
+            
+        try:
+            with open(plot_file, 'r') as f:
+                plot_data = json.load(f)
+            
+            # Check if this matches the requested plot_id
+            if (plot_data.get("agent_id") == plot_id or 
+                plot_data.get("name") == plot_id or 
+                plot_file.stem == plot_id):
+                return plot_data
+                
+        except Exception as e:
+            print(f"Error loading plot file {plot_file}: {e}")
+            continue
+    
     raise HTTPException(status_code=404, detail="Plot not found")
 
 
