@@ -20,10 +20,7 @@ function AppContent() {
   const [selectedPlot, setSelectedPlot] = useState<PlotData | null>(null);
 
   // Initialize time-based theme system
-  const { theme } = useTimeBasedTheme({
-    darkModeStart: 18, // 6 PM
-    darkModeEnd: 6,    // 6 AM
-  });
+  const { theme, toggleTheme } = useTimeBasedTheme();
 
   // Fetch plots data
   const { data: plots = [] } = useQuery({
@@ -70,10 +67,15 @@ function AppContent() {
               </button>
             </li>
             <li className="nav-item">
-              <div className="nav-theme-indicator">
+              <button
+                className="nav-theme-indicator theme-toggle-btn"
+                type="button"
+                aria-label="Toggle light/dark mode"
+                onClick={toggleTheme}
+              >
                 <span className="theme-icon">{theme === 'dark' ? '🌙' : '☀️'}</span>
                 <span className="theme-text">{theme === 'dark' ? 'Dark' : 'Light'}</span>
-              </div>
+              </button>
             </li>
           </ul>
         </div>
