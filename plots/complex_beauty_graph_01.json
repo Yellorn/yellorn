@@ -1,0 +1,27 @@
+{
+  "id": "complex_beauty_graph_01",
+  "name": "Complex Beauty Graph",
+  "description": "A visually stunning multi-dimensional plot with a torus knot, animated color shift, and glowing effect.",
+  "coordinates": { "x": -8, "y": 3, "z": 6 },
+  "size": { "width": 3, "height": 3, "depth": 3 },
+  "visualization": {
+    "geometry": "torusKnot",
+    "material": "phong",
+    "style": {
+      "color": "#8e44ad",
+      "opacity": 0.95,
+      "wireframe": false,
+      "glow": true
+    },
+    "animation": {
+      "rotation": { "x": 0.1, "y": 0.2, "z": 0.05 },
+      "color_shift": true,
+      "pulse": { "enabled": true, "speed": 2, "intensity": 1.5 }
+    }
+  },
+  "meta": {
+    "author": "Yellorn Copilot",
+    "created": "2025-09-02",
+    "tags": ["3D", "torusKnot", "animated", "glow", "complex", "beautiful"]
+  }
+}
