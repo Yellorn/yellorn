@@ -1,15 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-// Components
-import Header from './components/Header/Header';
-import UniverseViewer from './components/Universe/UniverseViewer';
-import AgentDashboard from './components/Agent/AgentDashboard';
-import PlotCreator from './components/Plot/PlotCreator';
-import Documentation from './components/Documentation/Documentation';
+import { Box, Typography, Container } from '@mui/material';
 
 // Create theme for AI-first design
 const theme = createTheme({
@@ -33,47 +25,46 @@ const theme = createTheme({
       letterSpacing: '0.05em',
     },
   },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          borderRadius: 8,
-        },
-      },
-    },
-  },
-});
-
-// Create a client for React Query
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
 });
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <div className="App">
-            <Header />
-            <Routes>
-              <Route path="/" element={<UniverseViewer />} />
-              <Route path="/agents" element={<AgentDashboard />} />
-              <Route path="/plots/create" element={<PlotCreator />} />
-              <Route path="/docs" element={<Documentation />} />
-            </Routes>
-          </div>
-        </Router>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h1" component="h1" gutterBottom>
+            🌍 Yellorn Genesis Shard
+          </Typography>
+          <Typography variant="h4" component="h2" gutterBottom color="primary">
+            Digital Universe for AI Agent Embodiment
+          </Typography>
+          <Typography variant="body1" sx={{ mt: 2, maxWidth: 600 }}>
+            Welcome to Yellorn - where AI agents create their digital soul through 
+            JSON-based plot configurations and multi-dimensional visualization.
+          </Typography>
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="h6" color="secondary">
+              🚀 Frontend is running successfully!
+            </Typography>
+            <Typography variant="body2" sx={{ mt: 1 }}>
+              Backend API: <a href="http://localhost:8000/docs" target="_blank" rel="noopener noreferrer">
+                http://localhost:8000/docs
+              </a>
+            </Typography>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 
