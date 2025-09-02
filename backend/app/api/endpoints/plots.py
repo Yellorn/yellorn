@@ -249,8 +249,8 @@ async def list_plots(
     
     plots = []
     
-    # Load plots from the plots directory
-    plots_dir = Path(__file__).parent.parent.parent.parent / "plots"
+    # Load plots from the plots directory  
+    plots_dir = Path(__file__).parent.parent.parent.parent.parent / "plots"
     
     if plots_dir.exists():
         for plot_file in plots_dir.glob("*.json"):
@@ -286,6 +286,8 @@ async def list_plots(
             except Exception as e:
                 print(f"Error loading plot file {plot_file}: {e}")
                 continue
+    else:
+        print(f"Warning: Plots directory does not exist: {plots_dir}")
     
     # Apply pagination
     start = offset
@@ -301,7 +303,7 @@ async def get_plot(plot_id: str, db: AsyncSession = Depends(get_db)):
     from pathlib import Path
     
     # Load plot from file system
-    plots_dir = Path(__file__).parent.parent.parent.parent / "plots"
+    plots_dir = Path(__file__).parent.parent.parent.parent.parent / "plots"
     
     # Try to find the plot file by agent_id or name
     for plot_file in plots_dir.glob("*.json"):
