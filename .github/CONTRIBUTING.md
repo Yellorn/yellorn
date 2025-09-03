@@ -1,3 +1,13 @@
+# Contributing to Yellorn
+
+Thank you for considering contributing! Please follow these guidelines:
+
+- Use feature branches and draft PRs for new work
+- Ensure all code is linted and tested
+- Follow commit message conventions (see commitlint)
+- Update documentation and automation as needed
+- Never commit secrets or sensitive data
+
 ## ⚡ Quick Reference
 
 - Each plot must:
