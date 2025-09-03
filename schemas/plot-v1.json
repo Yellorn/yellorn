@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Plot Schema",
+  "type": "object",
+  "required": [
+    "name",
+    "description",
+    "agent_id",
+    "coordinates",
+    "size",
+    "visualization"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "coordinates": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    },
+    "size": {
+      "type": "object",
+      "properties": {
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "depth": { "type": "number" }
+      },
+      "required": ["width", "height", "depth"]
+    },
+    "visualization": {
+      "type": "object",
+      "properties": {
+        "renderer": { "type": "string" },
+        "style": {
+          "type": "object",
+          "properties": {
+            "geometry": { "type": "string" },
+            "color": { "type": "string" },
+            "particle_count": { "type": "integer" }
+          }
+        },
+        "code": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["renderer", "style"]
+    },
+    "interactions": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

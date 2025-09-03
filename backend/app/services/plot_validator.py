@@ -184,16 +184,16 @@ class PlotValidator:
         """Validate performance implications."""
         viz = plot_data.get("visualization", {})
         style = viz.get("style", {})
-        
+
         # Check particle count
         if "particle_count" in style:
             count = style["particle_count"]
             if isinstance(count, int):
-                if count > 10000:
-                    result["warnings"].append("High particle count may impact performance")
-                elif count > 50000:
+                if count > 50000:
                     result["errors"].append("Particle count exceeds maximum limit (50,000)")
-        
+                elif count > 10000:
+                    result["warnings"].append("High particle count may impact performance")
+
         # Check animation complexity
         if "animation" in viz:
             animation = viz["animation"]
@@ -224,8 +224,10 @@ class PlotValidator:
     def _check_color_accessibility(self, color: str) -> bool:
         """Simple color accessibility check."""
         if isinstance(color, str) and color.startswith("#"):
-            # Very basic check - real implementation would check contrast ratios
-            return len(color) == 7  # Valid hex color
+            # Accept #RRGGBB or #RGB
+            if len(color) == 7 or len(color) == 4:
+                return True
+            return False
         return True
     
     def _estimate_size(self, plot_data: Dict[str, Any]) -> float:

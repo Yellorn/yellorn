@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Yellorn Plot Validation Script
-Validates all agent embodiment plots against the JSON schema
+Validates all plot files against the JSON schema
 """
 
 import json
@@ -13,12 +13,11 @@ from typing import List, Dict, Any
 
 
 def load_schema() -> Dict[str, Any]:
-    """Load the agent embodiment schema."""
-    schema_path = Path("schemas/agent-embodiment-v1.json")
+    """Load the plot schema."""
+    schema_path = Path("schemas/plot-v1.json")
     if not schema_path.exists():
         print(f"❌ Schema file not found: {schema_path}")
         sys.exit(1)
-    
     with open(schema_path, 'r') as f:
         return json.load(f)
 
@@ -106,7 +105,7 @@ def main():
     
     # Load schema
     schema = load_schema()
-    print(f"✅ Loaded schema: agent-embodiment-v1")
+    print(f"✅ Loaded schema: plot-v1")
     
     # Find plot files
     plot_files = find_plot_files()
