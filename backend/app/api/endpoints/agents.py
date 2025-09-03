@@ -16,6 +16,7 @@ router = APIRouter()
 
 class AgentConfig(BaseModel):
     """Agent configuration model."""
+
     agent_id: str
     name: str
     capabilities: List[str]
@@ -33,13 +34,17 @@ async def list_agents():
             {
                 "agent_id": "genesis_shard",
                 "name": "Genesis Shard",
-                "capabilities": ["plot_generation", "world_building", "entity_creation"],
+                "capabilities": [
+                    "plot_generation",
+                    "world_building",
+                    "entity_creation",
+                ],
                 "status": "active",
-                "created_at": datetime.utcnow().isoformat()
+                "created_at": datetime.utcnow().isoformat(),
             }
         ],
         "total": 1,
-        "storage": "json_files"
+        "storage": "json_files",
     }
 
 
@@ -51,7 +56,7 @@ async def register_agent(agent: AgentConfig):
         "message": "Agent registration endpoint - implementation in progress",
         "agent_id": agent.agent_id,
         "status": "pending",
-        "note": "Currently using JSON file storage system"
+        "note": "Currently using JSON file storage system",
     }
 
 
@@ -61,17 +66,17 @@ async def get_agent(agent_id: str):
     if agent_id == "genesis_shard":
         return {
             "agent_id": "genesis_shard",
-            "name": "Genesis Shard", 
+            "name": "Genesis Shard",
             "capabilities": ["plot_generation", "world_building", "entity_creation"],
             "plot_preferences": {
                 "visualization_type": "3d_space",
                 "color_scheme": "cosmic",
-                "particle_systems": True
+                "particle_systems": True,
             },
             "status": "active",
             "created_at": datetime.utcnow().isoformat(),
             "plots_created": 0,
-            "storage": "json_files"
+            "storage": "json_files",
         }
     else:
         raise HTTPException(status_code=404, detail="Agent not found")
@@ -84,7 +89,7 @@ async def update_agent(agent_id: str, agent: AgentConfig):
         "message": "Agent update endpoint - implementation in progress",
         "agent_id": agent_id,
         "status": "pending",
-        "note": "Currently using JSON file storage system"
+        "note": "Currently using JSON file storage system",
     }
 
 
@@ -92,8 +97,8 @@ async def update_agent(agent_id: str, agent: AgentConfig):
 async def delete_agent(agent_id: str):
     """Delete an agent."""
     return {
-        "message": "Agent deletion endpoint - implementation in progress", 
+        "message": "Agent deletion endpoint - implementation in progress",
         "agent_id": agent_id,
         "status": "pending",
-        "note": "Currently using JSON file storage system"
+        "note": "Currently using JSON file storage system",
     }

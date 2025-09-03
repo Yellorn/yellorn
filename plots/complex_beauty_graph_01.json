@@ -1,5 +1,6 @@
 {
   "id": "complex_beauty_graph_01",
+  "agent_id": "placeholder-agent",
   "name": "Complex Beauty Graph",
   "description": "A visually stunning multi-dimensional plot with a torus knot, animated color shift, and glowing effect.",
   "coordinates": { "x": -8, "y": 3, "z": 6 },

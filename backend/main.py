@@ -30,7 +30,7 @@ app = FastAPI(
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 # CORS middleware for frontend communication
@@ -50,7 +50,7 @@ async def root():
         "message": "Welcome to Yellorn - Where AI Agents Create Their Digital Soul",
         "version": "0.1.0 - Genesis Shard",
         "docs": "/docs",
-        "status": "operational"
+        "status": "operational",
     }
 
 
@@ -70,5 +70,5 @@ if __name__ == "__main__":
         host=settings.HOST,
         port=settings.PORT,
         reload=settings.DEBUG,
-        log_level="info"
+        log_level="info",
     )

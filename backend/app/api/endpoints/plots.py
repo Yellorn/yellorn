@@ -4,6 +4,7 @@ AI agent plot creation and validation - JSON file based
 """
 
 from fastapi import APIRouter, HTTPException, File, UploadFile
+
 # Removed: from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Optional, Dict, Any, Union
 from pydantic import BaseModel, Field
@@ -18,6 +19,7 @@ router = APIRouter()
 
 class PlotSchema(BaseModel):
     """Plot configuration schema."""
+
     name: str = Field(..., min_length=3, max_length=100)
     description: str = Field(..., max_length=1000)
     agent_id: str = Field(..., description="Creating agent ID")
@@ -25,12 +27,15 @@ class PlotSchema(BaseModel):
     coordinates: Dict[str, float] = Field(..., description="Plot position")
     size: Dict[str, float] = Field(..., description="Plot dimensions")
     visualization: Dict[str, Any] = Field(..., description="Visualization config")
-    interactions: List[Dict[str, Any]] = Field(default=[], description="Interaction definitions")
+    interactions: List[Dict[str, Any]] = Field(
+        default=[], description="Interaction definitions"
+    )
     metadata: Dict[str, Any] = Field(default={}, description="Additional metadata")
 
 
 class PlotResponse(BaseModel):
     """Plot response model."""
+
     id: str
     name: str
     description: str
@@ -53,29 +58,36 @@ async def get_plot_schema():
             "type": "object",
             "title": "Yellorn Plot Configuration",
             "description": "Configuration schema for AI agent plots in Yellorn",
-            "required": ["name", "description", "agent_id", "coordinates", "size", "visualization"],
+            "required": [
+                "name",
+                "description",
+                "agent_id",
+                "coordinates",
+                "size",
+                "visualization",
+            ],
             "properties": {
                 "name": {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 100,
-                    "description": "Plot name"
+                    "description": "Plot name",
                 },
                 "description": {
                     "type": "string",
                     "maxLength": 1000,
-                    "description": "Plot description"
+                    "description": "Plot description",
                 },
                 "agent_id": {
                     "type": "string",
-                    "description": "ID of the creating agent"
+                    "description": "ID of the creating agent",
                 },
                 "dimensions": {
                     "type": "integer",
                     "minimum": 1,
                     "maximum": 10,
                     "default": 3,
-                    "description": "Number of dimensions (1D to 10D)"
+                    "description": "Number of dimensions (1D to 10D)",
                 },
                 "coordinates": {
                     "type": "object",
@@ -83,9 +95,9 @@ async def get_plot_schema():
                     "properties": {
                         "x": {"type": "number"},
                         "y": {"type": "number"},
-                        "z": {"type": "number"}
+                        "z": {"type": "number"},
                     },
-                    "required": ["x", "y", "z"]
+                    "required": ["x", "y", "z"],
                 },
                 "size": {
                     "type": "object",
@@ -93,9 +105,9 @@ async def get_plot_schema():
                     "properties": {
                         "width": {"type": "number", "minimum": 1},
                         "height": {"type": "number", "minimum": 1},
-                        "depth": {"type": "number", "minimum": 1}
+                        "depth": {"type": "number", "minimum": 1},
                     },
-                    "required": ["width", "height", "depth"]
+                    "required": ["width", "height", "depth"],
                 },
                 "visualization": {
                     "type": "object",
@@ -103,11 +115,22 @@ async def get_plot_schema():
                     "properties": {
                         "type": {
                             "type": "string",
-                            "enum": ["geometry", "particle_system", "procedural", "custom"]
+                            "enum": [
+                                "geometry",
+                                "particle_system",
+                                "procedural",
+                                "custom",
+                            ],
                         },
                         "renderer": {
                             "type": "string",
-                            "enum": ["webgl", "canvas", "svg", "three_js", "babylon_js"]
+                            "enum": [
+                                "webgl",
+                                "canvas",
+                                "svg",
+                                "three_js",
+                                "babylon_js",
+                            ],
                         },
                         "style": {"type": "object"},
                         "animation": {"type": "object"},
@@ -117,15 +140,15 @@ async def get_plot_schema():
                                 "javascript": {"type": "string"},
                                 "python": {"type": "string"},
                                 "css": {"type": "string"},
-                                "html": {"type": "string"}
-                            }
-                        }
+                                "html": {"type": "string"},
+                            },
+                        },
                     },
-                    "required": ["type", "renderer"]
-                }
-            }
+                    "required": ["type", "renderer"],
+                },
+            },
         },
-        "examples_url": "/api/v1/plots/examples"
+        "examples_url": "/api/v1/plots/examples",
     }
 
 
@@ -151,13 +174,11 @@ async def get_plot_examples():
                             "geometry": "cube",
                             "material": "phong",
                             "color": "#00ff88",
-                            "wireframe": False
+                            "wireframe": False,
                         },
-                        "animation": {
-                            "rotation": {"x": 0.01, "y": 0.02, "z": 0}
-                        }
-                    }
-                }
+                        "animation": {"rotation": {"x": 0.01, "y": 0.02, "z": 0}},
+                    },
+                },
             },
             {
                 "name": "Particle System Agent",
@@ -176,15 +197,12 @@ async def get_plot_examples():
                             "particle_count": 1000,
                             "particle_size": 0.1,
                             "color_gradient": ["#ff0088", "#0088ff"],
-                            "movement_pattern": "orbital"
+                            "movement_pattern": "orbital",
                         },
-                        "animation": {
-                            "flow_speed": 2.0,
-                            "color_shift": True
-                        }
-                    }
-                }
-            }
+                        "animation": {"flow_speed": 2.0, "color_shift": True},
+                    },
+                },
+            },
         ]
     }
 
@@ -195,13 +213,13 @@ async def validate_plot(plot_data: PlotSchema):
     try:
         validator = PlotValidator()
         validation_result = await validator.validate(plot_data.dict())
-        
+
         return {
             "valid": validation_result["valid"],
             "errors": validation_result.get("errors", []),
             "warnings": validation_result.get("warnings", []),
             "estimated_size_mb": validation_result.get("estimated_size_mb", 0),
-            "suggestions": validation_result.get("suggestions", [])
+            "suggestions": validation_result.get("suggestions", []),
         }
     except Exception as e:
         return {
@@ -209,7 +227,7 @@ async def validate_plot(plot_data: PlotSchema):
             "errors": [f"Validation error: {str(e)}"],
             "warnings": [],
             "estimated_size_mb": 0,
-            "suggestions": []
+            "suggestions": [],
         }
 
 
@@ -219,8 +237,8 @@ async def create_plot(plot_data: PlotSchema):
     # TODO: Implement JSON file creation
     # For now, return error since we're focusing on reading existing plots
     raise HTTPException(
-        status_code=501, 
-        detail="Plot creation via API not yet implemented. Please create JSON files directly in /plots/ directory."
+        status_code=501,
+        detail="Plot creation via API not yet implemented. Please create JSON files directly in /plots/ directory.",
     )
 
 
@@ -229,28 +247,28 @@ async def list_plots(
     limit: int = 100,
     offset: int = 0,
     agent_id: Optional[str] = None,
-    status: Optional[str] = None
+    status: Optional[str] = None,
 ):
     """List all plots with optional filtering - loads from JSON files."""
     import os
     import json
     from pathlib import Path
-    
+
     plots = []
-    
-    # Load plots from the plots directory  
+
+    # Load plots from the plots directory
     plots_dir = Path(__file__).parent.parent.parent.parent.parent / "plots"
-    
+
     if plots_dir.exists():
         for plot_file in plots_dir.glob("*.json"):
             # Skip template files
             if plot_file.name in ["agent_template.json"]:
                 continue
-                
+
             try:
-                with open(plot_file, 'r') as f:
+                with open(plot_file, "r") as f:
                     plot_data = json.load(f)
-                
+
                 # Convert to PlotResponse format
                 plot_response = PlotResponse(
                     id=plot_data.get("agent_id", plot_file.stem),
@@ -263,21 +281,21 @@ async def list_plots(
                     status="active",
                     created_at=datetime.utcnow(),
                     updated_at=datetime.utcnow(),
-                    validation_status="validated"
+                    validation_status="validated",
                 )
-                
+
                 # Apply filters
                 if agent_id and plot_response.agent_id != agent_id:
                     continue
-                    
+
                 plots.append(plot_response)
-                
+
             except Exception as e:
                 print(f"Error loading plot file {plot_file}: {e}")
                 continue
     else:
         print(f"Warning: Plots directory does not exist: {plots_dir}")
-    
+
     # Apply pagination
     start = offset
     end = offset + limit
@@ -290,29 +308,31 @@ async def get_plot(plot_id: str):
     import os
     import json
     from pathlib import Path
-    
+
     # Load plot from file system
     plots_dir = Path(__file__).parent.parent.parent.parent.parent / "plots"
-    
+
     # Try to find the plot file by agent_id or name
     for plot_file in plots_dir.glob("*.json"):
         if plot_file.name in ["agent_template.json"]:
             continue
-            
+
         try:
-            with open(plot_file, 'r') as f:
+            with open(plot_file, "r") as f:
                 plot_data = json.load(f)
-            
+
             # Check if this matches the requested plot_id
-            if (plot_data.get("agent_id") == plot_id or 
-                plot_data.get("name") == plot_id or 
-                plot_file.stem == plot_id):
+            if (
+                plot_data.get("agent_id") == plot_id
+                or plot_data.get("name") == plot_id
+                or plot_file.stem == plot_id
+            ):
                 return plot_data
-                
+
         except Exception as e:
             print(f"Error loading plot file {plot_file}: {e}")
             continue
-    
+
     raise HTTPException(status_code=404, detail="Plot not found")
 
 
@@ -321,8 +341,8 @@ async def update_plot(plot_id: str, plot_data: PlotSchema):
     """Update an existing plot - saves to JSON file."""
     # TODO: Implement JSON file updating
     raise HTTPException(
-        status_code=501, 
-        detail="Plot updating via API not yet implemented. Please edit JSON files directly."
+        status_code=501,
+        detail="Plot updating via API not yet implemented. Please edit JSON files directly.",
     )
 
 
@@ -331,6 +351,6 @@ async def delete_plot(plot_id: str):
     """Delete a plot - removes JSON file."""
     # TODO: Implement JSON file deletion
     raise HTTPException(
-        status_code=501, 
-        detail="Plot deletion via API not yet implemented. Please remove JSON files directly."
+        status_code=501,
+        detail="Plot deletion via API not yet implemented. Please remove JSON files directly.",
     )

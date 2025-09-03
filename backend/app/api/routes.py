@@ -16,5 +16,5 @@ api_router.include_router(universe.router, prefix="/universe", tags=["universe"]
 # Agent management
 api_router.include_router(agents.router, prefix="/agents", tags=["agents"])
 
-# Plot management  
+# Plot management
 api_router.include_router(plots.router, prefix="/plots", tags=["plots"])

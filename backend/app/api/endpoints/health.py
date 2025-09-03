@@ -19,7 +19,7 @@ async def health_check():
         "status": "healthy",
         "timestamp": datetime.utcnow().isoformat(),
         "service": "yellorn-genesis-shard",
-        "storage": "json_files"
+        "storage": "json_files",
     }
 
 
@@ -27,7 +27,7 @@ async def health_check():
 async def detailed_health():
     """Detailed health check with storage connectivity."""
     start_time = time.time()
-    
+
     # Test file system access
     try:
         plots_dir = Path(__file__).parent.parent.parent.parent.parent / "plots"
@@ -39,9 +39,9 @@ async def detailed_health():
         storage_status = "error"
         storage_error = str(e)
         plot_count = 0
-    
+
     response_time = time.time() - start_time
-    
+
     return {
         "status": "healthy" if storage_status == "accessible" else "degraded",
         "timestamp": datetime.utcnow().isoformat(),
@@ -51,12 +51,12 @@ async def detailed_health():
             "status": storage_status,
             "error": storage_error,
             "plots_directory_exists": plots_exist,
-            "total_plots": plot_count
+            "total_plots": plot_count,
         },
         "response_time_ms": round(response_time * 1000, 2),
         "components": {
             "api": "operational",
             "storage": storage_status,
-            "agent_validation": "operational"
-        }
+            "agent_validation": "operational",
+        },
     }
